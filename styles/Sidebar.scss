@@ -1,0 +1,93 @@
+@import "src/sass/abstract/variables";
+@import "src/sass/abstract/mixins";
+.sidebar {
+  width: $sidebar-width;
+  height: 100vh;
+  background-color: white;
+  transition: all 0.5s;
+  z-index: 1;
+  &-expanded {
+    width: $sidebar-expanded-width;
+  }
+  &-item {
+    height: 12vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    &__icon-box {
+      height: 6vh;
+      width: $sidebar-width;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &--text {
+      display: none;
+      font-size: 1.5rem;
+    }
+    &__icon {
+      width: 2rem;
+    }
+    &:not(:first-child):hover {
+      border-left: 2px solid $primary-color;
+      border-top-right-radius: 10%;
+      border-bottom-right-radius: 10%;
+    }
+    &:not(:first-child):hover &--text {
+      @include selectedSidebarText;
+    }
+    &:not(:first-child):hover &__icon {
+      @include selectedSidebarText;
+      filter: invert(75%) sepia(29%) saturate(638%) hue-rotate(116deg) brightness(88%) contrast(91%);
+    }
+    &-active {
+      border-left: 2px solid $primary-color;
+      background-color: #f5f9f8;
+      border-top-right-radius: 10%;
+      border-bottom-right-radius: 10%;
+    }
+    &-active &--text {
+      @include selectedSidebarText;
+    }
+    &-active &__icon {
+      @include selectedSidebarText;
+      filter: invert(75%) sepia(29%) saturate(638%) hue-rotate(116deg) brightness(88%) contrast(91%);
+    }
+  }
+  &-expanded &-item--text {
+    display: block;
+  }
+  &-menu-button__container {
+    width: $sidebar-width;
+    background-color: $primary-color;
+    margin-bottom: 3.5rem;
+    transition: all 0.5s;
+  }
+  &-expanded &-menu-button__container {
+    width: $sidebar-expanded-width;
+  }
+  &-menu-button {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    height: $sidebar-width;
+    margin-left: 2rem;
+  }
+}
+.icon-dash {
+  height: 2px;
+  width: 2.5rem;
+  background-color: white;
+  margin: 4px 0;
+  transition: all 0.5s;
+}
+.icon-dash-first {
+  transform: translate(0, 4px) rotate(-45deg);
+  width: 1.25rem;
+}
+.icon-dash-last {
+  transform: translate(0, -4px) rotate(45deg);
+  width: 1.25rem;
+}

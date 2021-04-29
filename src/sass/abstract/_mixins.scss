@@ -1,0 +1,9 @@
+@mixin selectedSidebarText {
+  color: $primary-color;
+  font-weight: 500;
+}
+@mixin clearfix {
+  content: "";
+  display: table;
+  clear: both;
+}
