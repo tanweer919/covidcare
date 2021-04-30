@@ -3,15 +3,10 @@ import { useRouter } from "next/router";
 import SidebarIcon from "./SidebarIcon";
 
 interface propType {
-  sidebarExpanded: boolean;
-  setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
   selectedKey: number
 }
-const Sidebar = ({ sidebarExpanded, setExpanded, selectedKey }: propType): JSX.Element => {
+const Sidebar = ({ selectedKey }: propType): JSX.Element => {
   const router = useRouter();
-  const handleChange = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setExpanded(!sidebarExpanded);
-  };
 
   const handleSelect = (i: number, url: string) => {
     router.push(url);
@@ -33,17 +28,9 @@ const Sidebar = ({ sidebarExpanded, setExpanded, selectedKey }: propType): JSX.E
     { label: "Feeds", icon: "newspaper.svg", link: "/news" },
   ];
   return (
-    <nav className={`sidebar${sidebarExpanded ? " sidebar-expanded" : ""}`}>
-      <div className="sidebar-menu-button__container" onClick={handleChange}>
-        <div className="sidebar-menu-button">
-          <div
-            className={`icon-dash${sidebarExpanded ? " icon-dash-first" : ""}`}
-          ></div>
-          <div className="icon-dash "></div>
-          <div
-            className={`icon-dash${sidebarExpanded ? " icon-dash-last" : ""}`}
-          ></div>
-        </div>
+    <nav className="sidebar">
+      <div className="sidebar-logo__container">
+        <img className="sidebar-logo" src="/images/logo.png" alt="logo" />
       </div>
       {items.map((item: sidebarItem, i: number) => (
         <div

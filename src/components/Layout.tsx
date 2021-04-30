@@ -7,13 +7,10 @@ const Layout = ({
   children: JSX.Element;
   selectedKey: number;
 }): JSX.Element => {
-  const [sidebarExpanded, setExpanded] = useState(true);
 
   return (
     <div className="layout">
       <Sidebar
-        sidebarExpanded={sidebarExpanded}
-        setExpanded={setExpanded}
         selectedKey={selectedKey}
       />
       <div className="content">{children}</div>
