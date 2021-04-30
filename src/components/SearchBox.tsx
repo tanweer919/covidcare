@@ -1,18 +1,44 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const SearchBox = (): JSX.Element => {
   const [focus, setFocus] = useState(false);
+
+  const locations = [
+    "Koderma",
+    "Kolkata",
+    "Chennai",
+    "Bengaluru",
+    "Hyderabad",
+    "Mumbai",
+    "Delhi",
+    "Jaipur",
+    "Ranchi",
+  ];
+  const [location, setLocation] = useState("");
+  const [matchingLocations, setMatchingLocations] = useState<string[]>([]);
+  const filterCity = () => {
+    const filteredLocations =
+      location != ""
+        ? locations.filter((filteredLocation) => filteredLocation.toLowerCase().includes(location.toLowerCase()))
+        : [];
+        console.log(filteredLocations)
+    setMatchingLocations(filteredLocations);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
+    setLocation(value);
+    filterCity();
+  };
+
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setFocus(true);
   };
 
   const handleFocusOut = (e: React.FocusEvent<HTMLInputElement>) => {
     setFocus(false);
+    setMatchingLocations([]);
   };
-
-  const [location, setLocation] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
 
   return (
     <div className="searchbox-container">
@@ -28,13 +54,13 @@ const SearchBox = (): JSX.Element => {
           name="location"
         />
       </div>
-      {/* <div className="autocomplete-container">
-        {matchingCity.map((city, i) => (
+      <div className="autocomplete-container">
+        {matchingLocations.map((loc, i) => (
           <div className="autocomplete-item" key={i}>
-            {city}
+            {loc}
           </div>
         ))}
-      </div> */}
+      </div>
     </div>
   );
 };
