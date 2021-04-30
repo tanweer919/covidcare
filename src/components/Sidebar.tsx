@@ -28,7 +28,7 @@ const Sidebar = ({ selectedKey }: propType): JSX.Element => {
     { label: "Feeds", icon: "newspaper.svg", link: "/news" },
   ];
   return (
-    <nav className="sidebar">
+    <nav className="sidebar hidden md:block ">
       <div className="sidebar-logo__container">
         <img className="sidebar-logo" src="/images/logo.png" alt="logo" />
       </div>
@@ -39,13 +39,13 @@ const Sidebar = ({ selectedKey }: propType): JSX.Element => {
           }`}
           key={i}
           onClick={() => {
-            handleSelect(i, item["link"]);
+            handleSelect(i, item.link);
           }}
         >
           <div className="sidebar-item__icon-box">
-            <SidebarIcon icon={item["icon"]} />
+            <SidebarIcon icon={item.icon} />
           </div>
-          <div className="sidebar-item--text">{item["label"]}</div>
+          <div className="sidebar-item--text">{item.label}</div>
         </div>
       ))}
     </nav>

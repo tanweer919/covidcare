@@ -7,3 +7,12 @@
   display: table;
   clear: both;
 }
+@mixin iconColor {
+  filter: invert(75%) sepia(29%) saturate(638%) hue-rotate(116deg)
+    brightness(88%) contrast(91%);
+}
+@mixin linkActive {
+  border-left: 2px solid $primary-color;
+  border-top-right-radius: 10%;
+  border-bottom-right-radius: 10%;
+}

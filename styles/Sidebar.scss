@@ -27,35 +27,27 @@
       width: 2rem;
     }
     &:not(:first-child):hover {
-      border-left: 2px solid $primary-color;
-      border-top-right-radius: 10%;
-      border-bottom-right-radius: 10%;
+      @include linkActive
     }
     &:not(:first-child):hover &--text {
       @include selectedSidebarText;
     }
     &:not(:first-child):hover &__icon {
-      @include selectedSidebarText;
-      filter: invert(75%) sepia(29%) saturate(638%) hue-rotate(116deg)
-        brightness(88%) contrast(91%);
+      @include iconColor
     }
     &-active {
-      border-left: 2px solid $primary-color;
+      @include linkActive;
       background-color: #f5f9f8;
-      border-top-right-radius: 10%;
-      border-bottom-right-radius: 10%;
     }
     &-active &--text {
       @include selectedSidebarText;
     }
     &-active &__icon {
-      @include selectedSidebarText;
-      filter: invert(75%) sepia(29%) saturate(638%) hue-rotate(116deg)
-        brightness(88%) contrast(91%);
+      @include iconColor
     }
   }
   &-logo {
-    height: 12rem;
+    height: 14rem;
     margin-bottom: 4rem;
     padding: 1rem;
     &__container {
