@@ -1,7 +1,8 @@
 import SelectItem from "./SelectItem";
 import { ResourceList } from "../interfaces/interface";
-import { useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 const ResourceSelect = (): JSX.Element => {
+  const box = useRef(null);
   const resourceList: ResourceList[] = [
     { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
     { label: "Hospital Beds", value: 1, icon: "/images/hospital-bed.svg" },
@@ -13,14 +14,29 @@ const ResourceSelect = (): JSX.Element => {
 
   const [selectedResource, setSelectedResource] = useState(resourceList[0]);
   const [focus, setFocus] = useState(false);
-  const onChange = (resource: ResourceList) => {
+  const handleChange = (resource: ResourceList) => {
     setSelectedResource(resource);
     setFocus(false);
   };
 
-  const onSelectClick = () => {
+  const handleSelectClick = () => {
     setFocus(true);
   };
+
+  const handleFocusOut = (ref: MutableRefObject<any>) => {
+    useEffect(() => {
+      // Function for click event
+      function handleOutsideClick(event: MouseEvent): any {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setFocus(false);
+        }
+      }
+
+      // Adding click event listener
+      document.addEventListener("click", handleOutsideClick);
+    }, [ref]);
+  };
+  handleFocusOut(box);
   return (
     <div>
       <label
@@ -29,14 +45,14 @@ const ResourceSelect = (): JSX.Element => {
       >
         What are you looking for
       </label>
-      <div className="mt-1 relative">
+      <div className="mt-1 relative" ref={box}>
         <button
           type="button"
           className="h-14 relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
           aria-haspopup="listbox"
           aria-expanded="true"
           aria-labelledby="listbox-label"
-          onClick={onSelectClick}
+          onClick={handleSelectClick}
         >
           <span className="flex items-center">
             <img
@@ -65,22 +81,24 @@ const ResourceSelect = (): JSX.Element => {
           </span>
         </button>
 
-        {focus && <ul
-          className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-70 rounded-md py-1 text-2xl ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
-          tabIndex={-1}
-          role="listbox"
-          aria-labelledby="listbox-label"
-          aria-activedescendant="listbox-option-3"
-        >
-          {resourceList.map((resource) => (
-            <SelectItem
-              resource={resource}
-              key={resource.value}
-              onChange={onChange}
-              isSelected={selectedResource.value === resource.value}
-            />
-          ))}
-        </ul>}
+        {focus && (
+          <ul
+            className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-70 rounded-md py-1 text-2xl ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+            tabIndex={-1}
+            role="listbox"
+            aria-labelledby="listbox-label"
+            aria-activedescendant="listbox-option-3"
+          >
+            {resourceList.map((resource) => (
+              <SelectItem
+                resource={resource}
+                key={resource.value}
+                onChange={handleChange}
+                isSelected={selectedResource.value === resource.value}
+              />
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
