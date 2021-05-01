@@ -42,6 +42,7 @@
   }
 }
 .searchbox-container {
+  position: relative;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -51,8 +52,9 @@
   flex-direction: column;
 }
 .autocomplete-container {
+  position: absolute;
   width: 100%;
-  margin-top: 0.1rem;
+  margin-top: 5.3rem;
   height: fit-content;
   background-color: white;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.1);
@@ -68,3 +70,4 @@
 .autocomplete-item:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
+

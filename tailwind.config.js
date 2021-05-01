@@ -5,6 +5,10 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    colors: {
+      primary: "#57c6ac",
+      secondary: "#3366ff",
+    },
     screens: {
       sm: "640px",
       // => @media (min-width: 640px) { ... }

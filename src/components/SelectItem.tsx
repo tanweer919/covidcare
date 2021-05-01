@@ -30,7 +30,7 @@ const SelectItem = ({
         </span>
       </div>
 
-      {isSelected && <span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
+      {isSelected && <span className="text-secondary absolute inset-y-0 right-0 flex items-center pr-4">
         <svg
           className="h-8 w-8"
           xmlns="http://www.w3.org/2000/svg"
