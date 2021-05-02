@@ -42,7 +42,7 @@ const SearchBox = (): JSX.Element => {
 
   return (
     <div className="searchbox-container">
-      <div className={`search-box${focus ? " search-box--active" : ""}`}>
+      <div className={`search-box${focus ? " search-box--active" : ""} md:rounded-full`}>
         <img src="/images/search.svg" className="search-box__search-icon" />
         <input
           type="text"

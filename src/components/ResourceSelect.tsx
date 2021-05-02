@@ -41,7 +41,7 @@ const ResourceSelect = (): JSX.Element => {
     <div>
       <label
         id="listbox-label"
-        className="block text-2xl font-medium text-primary mb-4"
+        className="block text-3xl font-light text-primary mb-4"
       >
         What are you looking for
       </label>

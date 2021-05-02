@@ -9,10 +9,16 @@ const Home = (): JSX.Element => {
         <div className="flex md:hidden logo-small-box">
           <img className="logo-small" src="/images/logo_large.png" alt="logo" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-5">
-          <SearchBox />
-          <ResourceSelect />
-          <SearchButton />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 content-end">
+          <div className="md:col-start-2 md:col-span-2">
+            <SearchBox />
+          </div>
+          <div className="md:col-span-3">
+            <ResourceSelect />
+          </div>
+          <div className="md:col-span-1">
+            <SearchButton />
+          </div>
         </div>
       </section>
     </Layout>
