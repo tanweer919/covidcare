@@ -31,9 +31,12 @@ a {
 .text-white {
   color: #f6fbf8;
 }
-.bg-gray-300 {
-  background-color: #f3f3f4;
-}
 .bg-white {
   background-color: white;
+}
+.icon-avatar {
+  background-color: #fcede6;
+}
+.icon-avatar-color {
+  filter: invert(56%) sepia(28%) saturate(951%) hue-rotate(317deg) brightness(95%) contrast(84%);
 }

@@ -48,7 +48,7 @@ const ResourceSelect = (): JSX.Element => {
       <div className="mt-1 relative" ref={box}>
         <button
           type="button"
-          className="h-14 relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-secondary"
+          className="h-14 relative w-full bg-white border border-gray300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-secondary"
           aria-haspopup="listbox"
           aria-expanded="true"
           aria-labelledby="listbox-label"
