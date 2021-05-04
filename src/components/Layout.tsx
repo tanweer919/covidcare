@@ -11,8 +11,8 @@ const Layout = ({
   return (
     <div className="layout">
       <Sidebar selectedKey={selectedKey} />
-      <div className="content">{children}</div>
-      <BottomNavbar selectedKey={selectedKey}/>
+      <div className="content mb-40">{children}</div>
+      <BottomNavbar selectedKey={selectedKey} />
     </div>
   );
 };

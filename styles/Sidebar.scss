@@ -12,6 +12,9 @@
     display: flex;
     align-items: center;
     justify-content: start;
+    &:hover {
+    cursor: pointer;
+    }
     &__icon-box {
       height: 6vh;
       width: 7rem;

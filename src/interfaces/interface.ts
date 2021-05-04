@@ -3,3 +3,8 @@ export interface ResourceList {
   value: number;
   icon: string;
 }
+
+export interface TabInterface {
+  label: string;
+  onClick: () => void;
+}

@@ -2,9 +2,32 @@ import Layout from "../src/components/Layout";
 import SearchBox from "../src/components/SearchBox";
 import ResourceSelect from "../src/components/ResourceSelect";
 import SearchButton from "../src/components/SearchButton";
-import TabBar from '../src/components/TabBar';
-import TabView from '../src/components/TabView'
+import TabBar from "../src/components/TabBar";
+import TabView from "../src/components/TabView";
+import AvailableTab from "../src/components/AvailableTab";
+import RequestTab from "../src/components/RequestTab";
+import { TabInterface } from "../src/interfaces/interface";
+import { useState } from "react";
 const Home = (): JSX.Element => {
+  const [activeTab, setActiveTab] = useState(0);
+  const handleClick = (tab: number) => {
+    setActiveTab(tab);
+  };
+  const children = [<AvailableTab />, <RequestTab />];
+  const tabs: TabInterface[] = [
+    {
+      label: "Available",
+      onClick: () => {
+        handleClick(0);
+      },
+    },
+    {
+      label: "Request",
+      onClick: () => {
+        handleClick(1);
+      },
+    },
+  ];
   return (
     <Layout selectedKey={0}>
       <section>
@@ -23,10 +46,10 @@ const Home = (): JSX.Element => {
           </div>
         </div>
         <div className="mt-2">
-          <TabBar />
+          <TabBar tabs={tabs} activeTab={activeTab}/>
         </div>
         <div>
-          <TabView />
+          <TabView children={children} activeTab={activeTab} />
         </div>
       </section>
     </Layout>

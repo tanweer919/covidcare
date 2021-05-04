@@ -22,7 +22,7 @@ const BottomNavbar = ({selectedKey}: {selectedKey:number}): JSX.Element => {
     { label: "Feeds", icon: "newspaper.svg", link: "/news" },
   ];
   return (
-    <nav id="bottom-navigation" className="block md:hidden bottomNavbar">
+    <nav id="bottom-navigation" className="block md:hidden bottomNavbar bg-white">
       <div className="tabs">
         {items.map((item, i) => (
           <div
