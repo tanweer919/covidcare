@@ -8,7 +8,7 @@ const ResourceDetail = () => {
     setTotalLike(totalLike + (liked ? 1 : -1));
   };
   return (
-    <div className="px-4 mt-4">
+    <div className="p-4 border-b border-gray400">
       <div className="flex justify-end">
         <div className="p-2 px-4 text-white text-xl rounded-full bg-secondary flex justify-center items-center gap-x-2">
           <span>
@@ -75,6 +75,30 @@ const ResourceDetail = () => {
               </div>
             )}
           </div>
+        </div>
+      </div>
+      <div className="mt-2">
+        <div className="text-2xl text-textgray">Address</div>
+        <div className="text-2xl">Lorem ipsum dolor sit amet consectetur</div>
+      </div>
+      <div className="flex justify-between mt-2">
+        <div>
+          <div className="text-2xl text-textgray">Contact no.</div>
+          <div className="text-2xl">
+            <span>1234567890</span>
+          </div>
+        </div>
+        <div className="rounded-full bg-gray400 p-3 h-12 w-12">
+          <img src="/images/phone.svg" alt="phone" />
+        </div>
+      </div>
+      <div className="mt-2">
+        <div className="text-2xl text-textgray">Description</div>
+        <div>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta
+          commodi, veniam tempore cum consectetur dolor ipsum culpa praesentium
+          eaque facere dicta deleniti, nesciunt in id. Porro deserunt cupiditate
+          amet doloremque.
         </div>
       </div>
     </div>
