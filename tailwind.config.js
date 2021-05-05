@@ -11,6 +11,7 @@ module.exports = {
       secondary: "#3366ff",
       gray300: "#f3f3f4",
       gray400: "#e2e8f0",
+      textgray: "#a0a0a0"
     },
     screens: {
       sm: "640px",

@@ -23,7 +23,7 @@ const ResourceCard = (): JSX.Element => {
         </div>
         <div className="flex flex-col flex-grow">
           <span className="text-3xl">Oxygen</span>
-          <span className="text-2xl">Koderma</span>
+          <span className="text-2xl text-textgray">Koderma</span>
         </div>
       </div>
       <div className="flex flex-col flex-grow-0 border-l-2 border-gray300 p-4 gap-y-2">

@@ -1,9 +1,9 @@
 import SelectItem from "./SelectItem";
-import { ResourceList } from "../interfaces/interface";
+import { ResourceOption } from "../interfaces/interface";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 const ResourceSelect = (): JSX.Element => {
   const box = useRef(null);
-  const resourceList: ResourceList[] = [
+  const resourceList: ResourceOption[] = [
     { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
     { label: "Hospital Beds", value: 1, icon: "/images/hospital-bed.svg" },
     { label: "Medicines/Injections", value: 2, icon: "/images/medicine.svg" },
@@ -14,7 +14,7 @@ const ResourceSelect = (): JSX.Element => {
 
   const [selectedResource, setSelectedResource] = useState(resourceList[0]);
   const [focus, setFocus] = useState(false);
-  const handleChange = (resource: ResourceList) => {
+  const handleChange = (resource: ResourceOption) => {
     setSelectedResource(resource);
     setFocus(false);
   };

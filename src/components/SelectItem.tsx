@@ -1,12 +1,12 @@
-import { ResourceList } from "../interfaces/interface";
+import { ResourceOption } from "../interfaces/interface";
 
 const SelectItem = ({
   resource,
   onChange,
   isSelected,
 }: {
-  resource: ResourceList;
-  onChange: (resource: ResourceList) => void;
+  resource: ResourceOption;
+  onChange: (resource: ResourceOption) => void;
   isSelected: boolean;
 }): JSX.Element => {
   const onClick = () => {
