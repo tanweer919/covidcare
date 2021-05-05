@@ -56,7 +56,7 @@ const Resource = (): JSX.Element => {
         <h1 className="text-5xl font-medium">Oxygen Cylinder</h1>
         <div className="flex justify-between items-center -mt-4">
           <h2 className="text-4xl text-textgray">Oxygen</h2>
-          <div className="flex justify-end gap-x-4 items-center flex-grow-0 border-l-2 border-gray300 p-4 gap-y-2">
+          <div className="flex justify-end gap-x-4 items-center flex-grow-0 p-4 gap-y-2">
             <div
               onClick={() => {
                 handleClick(true);
