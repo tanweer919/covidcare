@@ -9,7 +9,7 @@ const ResourceCard = (): JSX.Element => {
     setTotalLike(totalLike + (liked ? 1 : -1))
   };
   const handleCardClick = () => {
-    router.push('/resource/123');
+    router.push({ pathname: "/resource/123", query: {opened: true}});
   }
   return (
     <div className="flex px-4 py-8 rounded-3xl shadow-lg" onClick={handleCardClick}>
