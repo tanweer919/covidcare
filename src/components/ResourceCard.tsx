@@ -1,14 +1,18 @@
 import { useState } from "react";
-
+import {useRouter } from "next/router"
 const ResourceCard = (): JSX.Element => {
+  const router = useRouter();
   const [liked, setLiked] = useState<boolean | null>(null);
   const [totalLike, setTotalLike] = useState(0)
   const handleClick = (liked: boolean) => {
     setLiked(liked);
     setTotalLike(totalLike + (liked ? 1 : -1))
   };
+  const handleCardClick = () => {
+    router.push('/resource/123');
+  }
   return (
-    <div className="flex px-4 py-8 rounded-3xl shadow-lg">
+    <div className="flex px-4 py-8 rounded-3xl shadow-lg" onClick={handleCardClick}>
       <div className="flex flex-col flex-grow-0 border-r-2 border-gray300 p-4">
         <span className="text-xl">8 March</span>
         <span className="text-xl">8:00 PM</span>

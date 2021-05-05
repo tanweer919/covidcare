@@ -11,10 +11,14 @@ const Resource = (): JSX.Element => {
     }
   }, []);
 
+  const handleBackButtonClick = () => {
+    router.back();
+  };
+
   return (
     <div>
       <div className="flex justify-start items-center p-4 relative border-b border-gray400">
-        <div className="bg-gray400 p-2 rounded-2xl absolute">
+        <div className="bg-gray400 p-2 rounded-2xl absolute" onClick={handleBackButtonClick}>
           <img
             src="/images/chevron-left.svg"
             alt="chevron-left"
