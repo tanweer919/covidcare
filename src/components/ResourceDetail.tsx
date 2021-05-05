@@ -78,13 +78,13 @@ const ResourceDetail = () => {
         </div>
       </div>
       <div className="mt-2">
-        <div className="text-2xl text-textgray">Address</div>
-        <div className="text-2xl">Lorem ipsum dolor sit amet consectetur</div>
+        <div className="text-3xl text-textgray">Address</div>
+        <div className="text-3xl">Lorem ipsum dolor sit amet consectetur</div>
       </div>
       <div className="flex justify-between mt-2">
         <div>
-          <div className="text-2xl text-textgray">Contact no.</div>
-          <div className="text-2xl">
+          <div className="text-3xl text-textgray">Contact no.</div>
+          <div className="text-3xl">
             <span>1234567890</span>
           </div>
         </div>
@@ -93,8 +93,8 @@ const ResourceDetail = () => {
         </div>
       </div>
       <div className="mt-2">
-        <div className="text-2xl text-textgray">Description</div>
-        <div>
+        <div className="text-3xl text-textgray">Description</div>
+        <div className="text-2xl">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta
           commodi, veniam tempore cum consectetur dolor ipsum culpa praesentium
           eaque facere dicta deleniti, nesciunt in id. Porro deserunt cupiditate
