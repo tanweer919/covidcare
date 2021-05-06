@@ -9,10 +9,10 @@ const ResourceCard = (): JSX.Element => {
     setTotalLike(totalLike + (liked ? 1 : -1))
   };
   const handleCardClick = () => {
-    router.push({ pathname: "/resource/123", query: {opened: true}});
+    router.push("/resource/123");
   }
   return (
-    <div className="flex px-4 py-8 rounded-3xl shadow-lg" onClick={handleCardClick}>
+    <div className="flex px-4 py-8 rounded-3xl shadow-lg cursor-pointer" onClick={handleCardClick}>
       <div className="flex flex-col flex-grow-0 border-r-2 border-gray300 p-4">
         <span className="text-xl">8 March</span>
         <span className="text-xl">8:00 PM</span>

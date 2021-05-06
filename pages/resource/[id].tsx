@@ -5,16 +5,18 @@ import {DiscussionEmbed} from "disqus-react"
 const Resource = (): JSX.Element => {
   const router = useRouter();
   const [resourceId, setResourceId] = useState<number | null>(null);
+  const [url, setUrl] = useState("");
   useEffect(() => {
     if (router.isReady) {
       console.log(router.query)
       const { id } = router.query;
       setResourceId(+id);
+      setUrl(`${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`);
     }
   }, []);
 
   const handleBackButtonClick = () => {
-    router.back();
+    router.push('/');
   };
 
   return (
@@ -35,15 +37,15 @@ const Resource = (): JSX.Element => {
         </div>
       </div>
       <ResourceDetail />
-      <DiscussionEmbed
-        shortname={process.env.DISCUSS_SHORT_NAME}
+      {resourceId !== null && <DiscussionEmbed
+        shortname={process.env.NEXT_PUBLIC_DISCUSS_SHORT_NAME}
         config={{
-          url: `http://localhost:3000${router.asPath}`,
+          url: url,
           identifier: `${resourceId}`,
           title: "Oxygen",
           language: "en",
         }}
-      />
+      />}
     </div>
   );
 };

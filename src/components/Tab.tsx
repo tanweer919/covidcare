@@ -14,7 +14,7 @@ const Tab = ({
   };
   return (
       <div
-        className={`tab flex justify-center hover:cursor-pointer text-3xl p-4${
+        className={`flex justify-center hover:cursor-pointer text-3xl p-4 cursor-pointer${
           isActive ? " border-secondary border-b-2 text-secondary" : ""
         }`}
         onClick={handleClick}
