@@ -37,15 +37,19 @@ const Resource = (): JSX.Element => {
         </div>
       </div>
       <ResourceDetail />
-      {resourceId !== null && <DiscussionEmbed
-        shortname={process.env.NEXT_PUBLIC_DISCUSS_SHORT_NAME}
-        config={{
-          url: url,
-          identifier: `${resourceId}`,
-          title: "Oxygen",
-          language: "en",
-        }}
-      />}
+      <div className="px-4">
+        {resourceId !== null && (
+          <DiscussionEmbed
+            shortname={process.env.NEXT_PUBLIC_DISCUSS_SHORT_NAME}
+            config={{
+              url: url,
+              identifier: `${resourceId}`,
+              title: "Oxygen",
+              language: "en",
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };
