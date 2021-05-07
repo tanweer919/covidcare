@@ -1,14 +1,22 @@
 import Layout from "../src/components/Layout";
 import SearchBox from "../src/components/SearchBox";
-import ResourceSelect from "../src/components/ResourceSelect";
+import SelectDropdown from "../src/components/SelectDropdown";
 import SearchButton from "../src/components/SearchButton";
 import TabBar from "../src/components/TabBar";
 import TabView from "../src/components/TabView";
 import AvailableTab from "../src/components/AvailableTab";
 import RequestTab from "../src/components/RequestTab";
-import { TabInterface } from "../src/interfaces/interface";
+import { TabInterface, SelectOption } from "../src/interfaces/interface";
 import { useState } from "react";
 const Home = (): JSX.Element => {
+  const resourceList: SelectOption[] = [
+    { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
+    { label: "Hospital Beds", value: 1, icon: "/images/hospital-bed.svg" },
+    { label: "Medicines/Injections", value: 2, icon: "/images/medicine.svg" },
+    { label: "Testing", value: 3, icon: "/images/blood-test.svg" },
+    { label: "Blood", value: 4, icon: "/images/blood-drop.svg" },
+    { label: "Ambulance", value: 5, icon: "/images/ambulance.svg" },
+  ];
   const [activeTab, setActiveTab] = useState(0);
   const handleClick = (tab: number) => {
     setActiveTab(tab);
@@ -39,14 +47,20 @@ const Home = (): JSX.Element => {
             <SearchBox />
           </div>
           <div className="md:col-span-3">
-            <ResourceSelect />
+            <label
+              id="listbox-label"
+              className="block text-3xl font-light text-primary mb-4"
+            >
+              What are you looking for
+            </label>
+            <SelectDropdown itemList={resourceList}/>
           </div>
           <div className="md:col-span-1">
             <SearchButton />
           </div>
         </div>
         <div className="mt-2">
-          <TabBar tabs={tabs} activeTab={activeTab}/>
+          <TabBar tabs={tabs} activeTab={activeTab} />
         </div>
         <div>
           <TabView children={children} activeTab={activeTab} />

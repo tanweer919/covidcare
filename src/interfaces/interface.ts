@@ -1,4 +1,4 @@
-export interface ResourceOption {
+export interface SelectOption {
   label: string;
   value: number;
   icon: string;
