@@ -9,9 +9,10 @@ module.exports = {
     colors: {
       primary: "#57c6ac",
       secondary: "#3366ff",
+      secondaryHover: "#5781ff",
       gray300: "#f3f3f4",
       gray400: "#e2e8f0",
-      textgray: "#6c6c6c"
+      textgray: "#6c6c6c",
     },
     screens: {
       sm: "640px",

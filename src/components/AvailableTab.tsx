@@ -15,7 +15,7 @@ const AvailableTab = (): JSX.Element => {
     <div className="mt-4">
       <div className="flex justify-end px-4">
         <div
-          className="rounded-full p-4 bg-secondary text-white text-xl"
+          className="rounded-full p-4 bg-secondary text-white text-xl hover:bg-secondaryHover"
           onClick={() => {
             router.push("/add/available/");
           }}
