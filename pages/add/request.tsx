@@ -22,7 +22,7 @@ const RequestForm = () => {
     <>
       <AppBar label="Request resource" />
       <Layout selectedKey={0}>
-        <div className="p-4 text-2xl grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="p-4 text-2xl grid grid-cols-1 md:w-1/2 mx-auto gap-4">
           <div className="flex flex-col gap-y-2">
             <h2 className="text-textgray">Name of the resource</h2>
             <input
