@@ -80,7 +80,6 @@ const SelectDropdown = ({itemList}: {itemList: SelectOption[]}): JSX.Element => 
               key={option.value}
               onChange={handleChange}
               isSelected={selectedOption.value === option.value}
-              key={i}
             />
           ))}
         </ul>
