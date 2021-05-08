@@ -58,7 +58,7 @@ const AvailableForm = () => {
               ></div>
             </div>
           </div>
-          {isCurrentCity && <div className="flex flex-col gap-y-2">
+          {!isCurrentCity && <div className="flex flex-col gap-y-2">
             <h2 className="text-textgray">City</h2>
             <input
               className="w-full bg-gray300 p-4 rounded-md"

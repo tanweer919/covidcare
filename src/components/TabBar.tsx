@@ -10,7 +10,7 @@ const TabBar = ({
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 border-b border-primary">
       {tabs.map((tab, i) => (
-        <Tab label={tab.label} isActive={i === activeTab} onClick={tab.onClick} />
+        <Tab label={tab.label} isActive={i === activeTab} onClick={tab.onClick} key={i}/>
       ))}
     </div>
   );

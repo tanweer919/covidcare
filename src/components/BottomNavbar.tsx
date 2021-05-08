@@ -32,6 +32,7 @@ const BottomNavbar = ({selectedKey}: {selectedKey:number}): JSX.Element => {
             onClick={() => {
               handleSelect(item.link);
             }}
+            key={i}
           >
             <div>
               <img src={`/images/${item.icon}`} className="tab--icon" alt={item.label} />

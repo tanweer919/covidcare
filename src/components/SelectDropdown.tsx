@@ -74,12 +74,13 @@ const SelectDropdown = ({itemList}: {itemList: SelectOption[]}): JSX.Element => 
           aria-labelledby="listbox-label"
           aria-activedescendant="listbox-option-3"
         >
-          {itemList.map((option) => (
+          {itemList.map((option, i) => (
             <SelectItem
               option={option}
               key={option.value}
               onChange={handleChange}
               isSelected={selectedOption.value === option.value}
+              key={i}
             />
           ))}
         </ul>
