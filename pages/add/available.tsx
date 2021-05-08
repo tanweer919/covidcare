@@ -25,10 +25,10 @@ const AvailableForm = () => {
     <>
       <AppBar label="Add available resource" />
       <Layout selectedKey={0} displayBottomNavbar={false}>
-        <div>
+        <>
           <div className="bg-primary p-12 md:p-20 mb-8 md:mx-80">
-            <h1 className="text-white text-4xl mb-4 w-fit mx-auto">Add Verified Information</h1>
-            <span className="inline-block text-gray300 text-2xl">
+            <h1 className="text-white text-4xl mb-4 w-fit mx-auto text-center">Add Verified Information</h1>
+            <span className="inline-block text-gray300 text-2xl text-center">
               The information being submitted by you could help save someone's
               life. Please fill the form below to add information. Our team of
               volunteers will verify the details before making it accessible to
@@ -121,7 +121,7 @@ const AvailableForm = () => {
               </button>
             </div>
           </form>
-        </div>
+        </>
       </Layout>
     </>
   );

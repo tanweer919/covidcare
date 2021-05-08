@@ -22,38 +22,19 @@ const RequestForm = () => {
     <>
       <AppBar label="Request resource" />
       <Layout selectedKey={0}>
-        <div className="p-4 text-2xl grid grid-cols-1 md:w-1/2 mx-auto gap-4">
-          <div className="flex flex-col gap-y-2">
-            <h2 className="text-textgray">Name of the resource</h2>
-            <input
-              className="w-full bg-gray300 p-4 rounded-md"
-              type="text"
-              name=""
-              id=""
-            />
+        <>
+          <div className="bg-primary p-12 md:p-20 mb-8 md:mx-80">
+            <h1 className="text-white text-4xl mb-4 w-fit mx-auto text-center">
+              Request any source
+            </h1>
+            <span className="inline-block text-gray300 text-2xl text-center">
+              Make a request for any resource that you are in need of. Make this
+              request only if you are in urgent need of it.
+            </span>
           </div>
-          <div className="flex flex-col gap-y-2">
-            <h2 className="text-textgray">Resource type</h2>
-            <SelectDropdown itemList={resourceList} />
-          </div>
-          <div className="flex justify-between">
-            <h2 className="text-textgray text-3xl">Current city</h2>
-            <div
-              className={`${
-                isCurrentCity ? "bg-primary" : "bg-gray400"
-              } rounded-full w-16 transition-all duration-200 relative`}
-              onClick={handleSwitchChange}
-            >
-              <div
-                className={`absolute top-1 ${
-                  isCurrentCity ? "right-1" : "left-1"
-                } rounded-full w-7 h-7 bg-white pt-1`}
-              ></div>
-            </div>
-          </div>
-          {!isCurrentCity && (
+          <form className="p-4 text-2xl grid grid-cols-1 md:w-1/2 mx-auto gap-4">
             <div className="flex flex-col gap-y-2">
-              <h2 className="text-textgray">City</h2>
+              <label className="text-textgray">Name of the resource</label>
               <input
                 className="w-full bg-gray300 p-4 rounded-md"
                 type="text"
@@ -61,49 +42,79 @@ const RequestForm = () => {
                 id=""
               />
             </div>
-          )}
-          <div className="flex flex-col gap-y-2">
-            <h2 className="text-textgray">Your address</h2>
-            <input
-              className="w-full bg-gray300 p-4 rounded-md"
-              type="text"
-              name=""
-              id=""
-            />
-          </div>
-          <div className="flex flex-col gap-y-2">
-            <h2 className="text-textgray">Contact name</h2>
-            <input
-              className="w-full bg-gray300 p-4 rounded-md"
-              type="text"
-              name=""
-              id=""
-            />
-          </div>
-          <div className="flex flex-col gap-y-2">
-            <h2 className="text-textgray">Phone number</h2>
-            <input
-              className="w-full bg-gray300 p-4 rounded-md"
-              type="text"
-              name=""
-              id=""
-            />
-          </div>
-          <div className="flex flex-col gap-y-2">
-            <h2 className="text-textgray">Quantity of the requirement</h2>
-            <input
-              className="w-full bg-gray300 p-4 rounded-md"
-              type="text"
-              name=""
-              id=""
-            />
-          </div>
-          <div>
-            <button className="bg-primary rounded-md md:rounded-full w-full p-2 text-4xl text-white">
-              Submit
-            </button>
-          </div>
-        </div>
+            <div className="flex flex-col gap-y-2">
+              <label className="text-textgray">Resource type</label>
+              <SelectDropdown itemList={resourceList} />
+            </div>
+            <div className="flex justify-between">
+              <label className="text-textgray text-3xl">Current city</label>
+              <div
+                className={`${
+                  isCurrentCity ? "bg-primary" : "bg-gray400"
+                } rounded-full w-16 transition-all duration-200 relative`}
+                onClick={handleSwitchChange}
+              >
+                <div
+                  className={`absolute top-1 ${
+                    isCurrentCity ? "right-1" : "left-1"
+                  } rounded-full w-7 h-7 bg-white pt-1`}
+                ></div>
+              </div>
+            </div>
+            {!isCurrentCity && (
+              <div className="flex flex-col gap-y-2">
+                <label className="text-textgray">City</label>
+                <input
+                  className="w-full bg-gray300 p-4 rounded-md"
+                  type="text"
+                  name=""
+                  id=""
+                />
+              </div>
+            )}
+            <div className="flex flex-col gap-y-2">
+              <label className="text-textgray">Your address</label>
+              <input
+                className="w-full bg-gray300 p-4 rounded-md"
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <label className="text-textgray">Contact name</label>
+              <input
+                className="w-full bg-gray300 p-4 rounded-md"
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <label className="text-textgray">Phone number</label>
+              <input
+                className="w-full bg-gray300 p-4 rounded-md"
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <label className="text-textgray">Quantity required</label>
+              <input
+                className="w-full bg-gray300 p-4 rounded-md"
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
+            <div>
+              <button className="bg-primary rounded-md md:rounded-full w-full p-2 text-4xl text-white">
+                Submit
+              </button>
+            </div>
+          </form>
+        </>
       </Layout>
     </>
   );
