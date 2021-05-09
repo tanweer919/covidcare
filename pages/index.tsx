@@ -9,6 +9,7 @@ import RequestTab from "../src/components/RequestTab";
 import { TabInterface, SelectOption } from "../src/interfaces/interface";
 import { useState } from "react";
 const Home = (): JSX.Element => {
+  
   const resourceList: SelectOption[] = [
     { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
     { label: "Hospital Beds", value: 1, icon: "/images/hospital-bed.svg" },
