@@ -25,7 +25,7 @@ const RequestForm = () => {
         <>
           <div className="bg-primary p-12 md:p-20 mb-8 md:mx-80">
             <h1 className="text-white text-4xl mb-4 w-fit mx-auto text-center">
-              Request any source
+              Request any resource
             </h1>
             <span className="inline-block text-gray300 text-2xl text-center">
               Make a request for any resource that you are in need of. Make this

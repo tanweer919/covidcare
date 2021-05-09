@@ -25,7 +25,7 @@ const SelectItem = ({
           alt={option.label}
           className="flex-shrink-0 h-8 w-8"
         />
-        <span className="font-normal ml-3 block truncate">{option.label}</span>
+        <span className="font-normal ml-3 block truncate md:text-2xl">{option.label}</span>
       </div>
 
       {isSelected && (
