@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import HttpService from "../services/HttpService";
 import { AutoComplete } from "../interfaces/interface";
 
@@ -6,28 +6,53 @@ const SearchBox = (): JSX.Element => {
   const [focus, setFocus] = useState(false);
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState<AutoComplete[]>([]);
+  const [placeId, setPlaceId] = useState<string | null>(null);
+  const box = useRef(null);
+
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setLocation(value);
     if (value !== "") {
       const client = HttpService.getHttpClient();
-      const {data}: {data: AutoComplete[]} = await client.post("/autocomplete", { input: value });
-      console.log(data);
+      const { data }: { data: AutoComplete[] } = await client.post(
+        "/autocomplete",
+        {
+          input: value,
+        }
+      );
       setSuggestions(data);
     }
+  };
+
+  const handleSuggestionItemClick = (item: AutoComplete) => {
+    setLocation(item.term);
+    setPlaceId(item.placeId);
+    setSuggestions([]);
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setFocus(true);
   };
 
-  const handleFocusOut = (e: React.FocusEvent<HTMLInputElement>) => {
-    setFocus(false);
-    setSuggestions([]);
+  const handleFocusOut = (ref: MutableRefObject<any>) => {
+    useEffect(() => {
+      // Function for click event
+      function handleOutsideClick(event: MouseEvent): any {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setFocus(false);
+          setSuggestions([]);
+        }
+      }
+
+      // Adding click event listener
+      document.addEventListener("click", handleOutsideClick);
+    }, [ref]);
   };
 
+  handleFocusOut(box);
+
   return (
-    <div className="searchbox-container">
+    <div className="searchbox-container" ref={box}>
       <div
         className={`search-box${
           focus ? " search-box--active" : ""
@@ -39,15 +64,25 @@ const SearchBox = (): JSX.Element => {
           className="search-box__input"
           placeholder="Search for location"
           onFocus={handleFocus}
-          onBlur={handleFocusOut}
           onChange={handleChange}
           name="location"
+          value={location}
         />
       </div>
       <div className="autocomplete-container">
         {suggestions.map((suggestion, i) => (
-          <div className="autocomplete-item" key={i}>
-            <img src="/images/location.svg" alt="location_pin" className="h-6 mr-2"/>
+          <div
+            className="autocomplete-item"
+            key={i}
+            onClick={() => {
+              handleSuggestionItemClick(suggestion);
+            }}
+          >
+            <img
+              src="/images/location.svg"
+              alt="location_pin"
+              className="h-6 mr-2"
+            />
             <span>{suggestion.term}</span>
           </div>
         ))}
