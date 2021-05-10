@@ -62,8 +62,10 @@
 .autocomplete-item {
   width: 100%;
   align-items: flex-end;
-  height: 7vh;
-  padding: 10px;
+  height: 5rem;
+  display: flex;
+  padding: 0 1.5rem;
+  align-items: center;
   font-size: 1.8rem;
   color: rgba(0, 0, 0, 0.8);
 }

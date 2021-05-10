@@ -1,34 +1,20 @@
 import React, { useState } from "react";
+import HttpService from "../services/HttpService";
+import { AutoComplete } from "../interfaces/interface";
 
 const SearchBox = (): JSX.Element => {
   const [focus, setFocus] = useState(false);
-
-  const locations = [
-    "Koderma",
-    "Kolkata",
-    "Chennai",
-    "Bengaluru",
-    "Hyderabad",
-    "Mumbai",
-    "Delhi",
-    "Jaipur",
-    "Ranchi",
-  ];
   const [location, setLocation] = useState("");
-  const [matchingLocations, setMatchingLocations] = useState<string[]>([]);
-  const filterCity = () => {
-    const filteredLocations =
-      location != ""
-        ? locations.filter((filteredLocation) => filteredLocation.toLowerCase().includes(location.toLowerCase()))
-        : [];
-        console.log(filteredLocations)
-    setMatchingLocations(filteredLocations);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [suggestions, setSuggestions] = useState<AutoComplete[]>([]);
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setLocation(value);
-    filterCity();
+    if (value !== "") {
+      const client = HttpService.getHttpClient();
+      const {data}: {data: AutoComplete[]} = await client.post("/autocomplete", { input: value });
+      console.log(data);
+      setSuggestions(data);
+    }
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -37,12 +23,16 @@ const SearchBox = (): JSX.Element => {
 
   const handleFocusOut = (e: React.FocusEvent<HTMLInputElement>) => {
     setFocus(false);
-    setMatchingLocations([]);
+    setSuggestions([]);
   };
 
   return (
     <div className="searchbox-container">
-      <div className={`search-box${focus ? " search-box--active" : ""} md:rounded-full`}>
+      <div
+        className={`search-box${
+          focus ? " search-box--active" : ""
+        } md:rounded-full`}
+      >
         <img src="/images/search.svg" className="search-box__search-icon" />
         <input
           type="text"
@@ -55,9 +45,10 @@ const SearchBox = (): JSX.Element => {
         />
       </div>
       <div className="autocomplete-container">
-        {matchingLocations.map((loc, i) => (
+        {suggestions.map((suggestion, i) => (
           <div className="autocomplete-item" key={i}>
-            {loc}
+            <img src="/images/location.svg" alt="location_pin" className="h-6 mr-2"/>
+            <span>{suggestion.term}</span>
           </div>
         ))}
       </div>

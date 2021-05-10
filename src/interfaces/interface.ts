@@ -19,3 +19,8 @@ export interface TabInterface {
   label: string;
   onClick: () => void;
 }
+
+export interface AutoComplete {
+  term: string;
+  placeId: string;
+}
