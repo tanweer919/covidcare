@@ -4,15 +4,16 @@ export interface SelectOption {
   icon: string;
 }
 
-export interface Resource {
+export interface AvailableResourceData {
+  name: string;
   type: number;
-  contact: string;
-  description:string;
-  verified: number;
-  source: string;
+  description: string;
+  contactName: string;
+  phoneNumber: string;
+  location: number[];
   address: string;
-  location: string;
-  like: number;
+  available: number;
+  source: string;
 }
 
 export interface TabInterface {

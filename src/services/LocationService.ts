@@ -8,6 +8,10 @@ export default class LocationService {
       "long",
       JSON.stringify(position.coords.longitude)
     );
+    localStorage.setItem(
+      "locationSet", 
+      JSON.stringify(true)
+    )
   };
   showError(error: GeolocationPositionError){
     switch (error.code) {

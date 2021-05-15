@@ -8,6 +8,7 @@ module.exports = {
   theme: {
     colors: {
       primary: "#57c6ac",
+      primaryHover: "#2f8f78",
       secondary: "#3366ff",
       secondaryHover: "#5781ff",
       gray300: "#f3f3f4",
