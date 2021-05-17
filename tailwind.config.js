@@ -14,6 +14,7 @@ module.exports = {
       gray300: "#f3f3f4",
       gray400: "#e2e8f0",
       textgray: "#6c6c6c",
+      textred: "#ff0000",
       black: "#000",
       white: "#fff",
     },

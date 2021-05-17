@@ -98,7 +98,7 @@ const AvailableForm = () => {
 
   const validateForm = (): FormErrors | null => {
     let { error: validationErrors } = Joi.object(schema).validate(data, {
-      abortEarly: true,
+      abortEarly: false,
     });
     if (validationErrors) {
       let formErrors: FormErrors = {};
@@ -119,7 +119,7 @@ const AvailableForm = () => {
     if (errors === null) {
       console.log("Form submitted");
     } else {
-      console.log(errors);
+      setErrors(errors);
     }
   };
 
@@ -150,6 +150,7 @@ const AvailableForm = () => {
               value={data.name}
               handleChange={handleChange}
               errors={errors}
+              isRequired={true}
             />
             <div className="flex flex-col gap-y-2">
               <label className="text-textgray" htmlFor="type">
@@ -187,7 +188,7 @@ const AvailableForm = () => {
                   City
                 </label>
                 <input
-                  className="w-full bg-gray300 p-4 rounded-md"
+                  className="w-full bg-gray300 p-4 rounded-md border-gray400 border-2"
                   type="text"
                   name="city"
                   id="city"
@@ -203,6 +204,7 @@ const AvailableForm = () => {
               value={data.address}
               handleChange={handleChange}
               errors={errors}
+              isRequired={true}
             />
             <FormInput
               name="contactName"
@@ -211,6 +213,7 @@ const AvailableForm = () => {
               value={data.contactName}
               handleChange={handleChange}
               errors={errors}
+              isRequired={true}
             />
             <FormInput
               name="phoneNumber"
@@ -219,6 +222,7 @@ const AvailableForm = () => {
               value={data.phoneNumber}
               handleChange={handleChange}
               errors={errors}
+              isRequired={true}
             />
             <FormInput
               name="source"
@@ -227,6 +231,7 @@ const AvailableForm = () => {
               value={data.source}
               handleChange={handleChange}
               errors={errors}
+              isRequired={true}
             />
             <FormInput
               name="description"
@@ -235,7 +240,12 @@ const AvailableForm = () => {
               value={data.description}
               handleChange={handleChange}
               errors={errors}
+              isRequired={false}
             />
+            <div className="flex items-center">
+              <div className="text-textred text-4xl pt-3">*</div>{" "}
+              <div>- Required</div>
+            </div>
             <div>
               <button className="bg-primary rounded-md md:rounded-full w-full p-2 text-4xl text-white">
                 Submit

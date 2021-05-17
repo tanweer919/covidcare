@@ -1,30 +1,41 @@
+import { useEffect } from "react";
 import { FormErrors } from "../interfaces/interface";
 const FormInput = ({
   name,
   label,
   value,
   handleChange,
+  isRequired,
   errors,
 }: {
   name: string;
   label: string;
   value: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isRequired: boolean;
   errors: FormErrors;
 }): JSX.Element => {
   return (
-    <div className="flex flex-col gap-y-2">
-      <label className="text-textgray" htmlFor={name}>
+    <div className="flex flex-col">
+      <label className="text-textgray mb-2" htmlFor={name}>
         {label}
+        {isRequired && <span className="text-2xl text-textred">*</span>}
       </label>
       <input
-        className="w-full bg-gray300 p-4 rounded-md"
+        className={`w-full bg-gray300 p-4 rounded-md border ${
+          errors[name] ? "border-textred" : "border-gray400"
+        }`}
         type="text"
         name={name}
         id={name}
         value={value}
         onChange={handleChange}
       />
+      {
+        <div className="h-4">
+          {errors[name] && <div className="text-textred">{errors[name]}</div>}
+        </div>
+      }
     </div>
   );
 };
