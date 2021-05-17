@@ -25,13 +25,35 @@ const AvailableForm = () => {
   const [errors, setErrors] = useState<FormErrors>({});
 
   const schema = {
-    name: Joi.string().required().label("Name"),
-    type: Joi.number().required().label("Resource type"),
-    contactName: Joi.string().required().label("Contact Name"),
-    phoneNumber: Joi.string().required().min(6).label("Phone Number"),
-    address: Joi.string().required().label("Address"),
-    available: Joi.number().required().label("Availiblity"),
-    source: Joi.string().required().label("Information Source"),
+    name: Joi.string().required().messages({
+      "string.empty": "Name is required",
+      "string.required": "Name is required",
+    }),
+    type: Joi.number().required().messages({
+      "string.required": "Resource type is required",
+      "string.empty": "Resource type is required",
+    }),
+    address: Joi.string().required().messages({
+      "string.required": "Address is required",
+      "string.empty": "Address is required",
+    }),
+    contactName: Joi.string().required().messages({
+      "string.required": "Contact name is required",
+      "string.empty": "Contact name is required",
+    }),
+    phoneNumber: Joi.string().required().min(10).messages({
+      "string.required": "Phone number is required",
+      "string.empty": "Phone number is required",
+      "string.min": "Invalid phone number"
+    }),
+    available: Joi.number().required().messages({
+      "string.required": "Availiblity is required",
+      "string.empty": "Availiblity is required",
+    }),
+    source: Joi.string().required().messages({
+      "string.required": "Information source is required",
+      "string.empty": "Information source is required",
+    }),
   };
 
   useEffect(() => {}, []);
