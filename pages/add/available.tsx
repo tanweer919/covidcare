@@ -3,7 +3,11 @@ import SelectDropdown from "../../src/components/SelectDropdown";
 import { SelectOption } from "../../src/interfaces/interface";
 import Layout from "../../src/components/Layout";
 import { useEffect, useState } from "react";
-import { AvailableResourceData } from "../../src/interfaces/interface";
+import {
+  AvailableResourceData,
+  FormErrors,
+} from "../../src/interfaces/interface";
+import Joi from "joi";
 const AvailableForm = () => {
   const [data, setData] = useState<AvailableResourceData>({
     name: "",
@@ -12,18 +16,30 @@ const AvailableForm = () => {
     contactName: "",
     phoneNumber: "",
     location: [],
+    city: "",
     address: "",
     available: 1,
     source: "",
   });
 
-  useEffect(() => {
-    
-  }, [])
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  const schema = {
+    name: Joi.string().required().label("Name"),
+    type: Joi.number().required().label("Resource type"),
+    contactName: Joi.string().required().label("Contact Name"),
+    phoneNumber: Joi.string().required().min(6).label("Phone Number"),
+    address: Joi.string().required().label("Address"),
+    available: Joi.number().required().label("Availiblity"),
+    source: Joi.string().required().label("Information Source"),
+  };
+
+  useEffect(() => {}, []);
   const [isCurrentCity, setIsCurrentCity] = useState(true);
   const handleSwitchChange = () => {
     setIsCurrentCity(!isCurrentCity);
   };
+
   const resourceList: SelectOption[] = [
     { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
     { label: "Hospital Beds", value: 1, icon: "/images/hospital-bed.svg" },
@@ -37,6 +53,52 @@ const AvailableForm = () => {
     { label: "Available", value: 1, icon: "/images/tick.svg" },
     { label: "Unavailable", value: 0, icon: "/images/cross.svg" },
   ];
+
+  // const validateInput = (input: string): string | null => {
+  //   let subSchema = {
+  //     [input]: schema[input],
+  //   };
+  //   let validationObject = {
+  //     [input]: data[input],
+  //   };
+  //   let { error: validationErrors } =
+  //     Joi.object(subSchema).validate(validationObject);
+  //   return validationErrors ? validationErrors.details[0].message : null;
+  // };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let formData = { ...data };
+    let input = e.currentTarget.name;
+    formData[input] = e.currentTarget.value;
+    setData(formData);
+  };
+
+  const validateForm = (): FormErrors | null => {
+    let { error: validationErrors } = Joi.object(schema).validate(data, {
+      abortEarly: true,
+    });
+    if (validationErrors) {
+      let formErrors: FormErrors = {};
+      let formValidationErrors = validationErrors.details;
+      for (let i = 0; i < formValidationErrors.length; i++) {
+        formErrors[formValidationErrors[i].path[0]] = formValidationErrors[
+          i
+        ].message.replace(/"/g, "");
+      }
+      return formErrors;
+    }
+    return null;
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const errors = validateForm();
+    if (errors === null) {
+      console.log("Form submitted");
+    } else {
+      console.log(errors);
+    }
+  };
 
   return (
     <>
@@ -54,31 +116,45 @@ const AvailableForm = () => {
               others.
             </span>
           </div>
-          <form className="text-2xl grid grid-cols-1 md:w-1/2 mx-auto gap-4">
+          <form
+            className="text-2xl grid grid-cols-1 md:w-1/2 mx-auto gap-4"
+            onSubmit={handleSubmit}
+          >
             <div className="flex flex-col gap-y-2">
-              <label className="text-textgray">Name of the resource</label>
+              <label className="text-textgray" htmlFor="name">
+                Name of the resource
+              </label>
               <input
                 className="w-full bg-gray300 p-4 rounded-md"
                 type="text"
-                name=""
-                id=""
+                name="name"
+                id="name"
+                value={data.name}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col gap-y-2">
-              <label className="text-textgray">Resource type</label>
+              <label className="text-textgray" htmlFor="type">
+                Resource type
+              </label>
               <SelectDropdown itemList={resourceList} />
             </div>
             <div className="flex flex-col gap-y-2">
-              <label className="text-textgray">Availablity</label>
+              <label className="text-textgray" htmlFor="availiblity">
+                Availablity
+              </label>
               <SelectDropdown itemList={availablityList} />
             </div>
             <div className="flex justify-between">
-              <label className="text-textgray text-3xl">Current city</label>
+              <label className="text-textgray text-3xl" htmlFor="currentCity">
+                Current city
+              </label>
               <div
                 className={`${
                   isCurrentCity ? "bg-primary" : "bg-gray400"
                 } rounded-full w-16 transition-all duration-200 relative`}
                 onClick={handleSwitchChange}
+                id="currentCity"
               >
                 <div
                   className={`absolute top-1 ${
@@ -89,49 +165,69 @@ const AvailableForm = () => {
             </div>
             {!isCurrentCity && (
               <div className="flex flex-col gap-y-2">
-                <label className="text-textgray">City</label>
+                <label className="text-textgray" htmlFor="city">
+                  City
+                </label>
                 <input
                   className="w-full bg-gray300 p-4 rounded-md"
                   type="text"
-                  name=""
-                  id=""
+                  name="city"
+                  id="city"
+                  value={data.city}
+                  onChange={handleChange}
                 />
               </div>
             )}
             <div className="flex flex-col gap-y-2">
-              <label className="text-textgray">Address</label>
+              <label className="text-textgray" htmlFor="address">
+                Address
+              </label>
               <input
                 className="w-full bg-gray300 p-4 rounded-md"
                 type="text"
-                name=""
-                id=""
+                name="address"
+                id="address"
+                value={data.address}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col gap-y-2">
-              <label className="text-textgray">Contact name</label>
+              <label className="text-textgray" htmlFor="contactName">
+                Contact name
+              </label>
               <input
                 className="w-full bg-gray300 p-4 rounded-md"
                 type="text"
-                name=""
-                id=""
+                name="contactName"
+                id="contactName"
+                value={data.contactName}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col gap-y-2">
-              <label className="text-textgray">Phone number</label>
+              <label className="text-textgray" htmlFor="phoneNumber">
+                Phone number
+              </label>
               <input
                 className="w-full bg-gray300 p-4 rounded-md"
                 type="text"
-                name=""
-                id=""
+                name="phoneNumber"
+                id="phoneNumber"
+                value={data.phoneNumber}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col gap-y-2">
-              <label className="text-textgray">Information Source</label>
+              <label className="text-textgray" htmlFor="source">
+                Information Source
+              </label>
               <input
                 className="w-full bg-gray300 p-4 rounded-md"
                 type="text"
-                name=""
-                id=""
+                name="source"
+                id="source"
+                value={data.source}
+                onChange={handleChange}
               />
             </div>
             <div>

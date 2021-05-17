@@ -11,6 +11,7 @@ export interface AvailableResourceData {
   contactName: string;
   phoneNumber: string;
   location: number[];
+  city: string;
   address: string;
   available: number;
   source: string;
@@ -24,4 +25,8 @@ export interface TabInterface {
 export interface AutoComplete {
   term: string;
   placeId: string;
+}
+
+export interface FormErrors {
+  [name: string]: string;
 }
