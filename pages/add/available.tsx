@@ -7,6 +7,7 @@ import {
   AvailableResourceData,
   FormErrors,
 } from "../../src/interfaces/interface";
+import FormInput from "../../src/components/FormInput";
 import Joi from "joi";
 const AvailableForm = () => {
   const [data, setData] = useState<AvailableResourceData>({
@@ -44,7 +45,7 @@ const AvailableForm = () => {
     phoneNumber: Joi.string().required().min(10).messages({
       "string.required": "Phone number is required",
       "string.empty": "Phone number is required",
-      "string.min": "Invalid phone number"
+      "string.min": "Invalid phone number",
     }),
     available: Joi.number().required().messages({
       "string.required": "Availiblity is required",
@@ -142,19 +143,14 @@ const AvailableForm = () => {
             className="text-2xl grid grid-cols-1 md:w-1/2 mx-auto gap-4"
             onSubmit={handleSubmit}
           >
-            <div className="flex flex-col gap-y-2">
-              <label className="text-textgray" htmlFor="name">
-                Name of the resource
-              </label>
-              <input
-                className="w-full bg-gray300 p-4 rounded-md"
-                type="text"
-                name="name"
-                id="name"
-                value={data.name}
-                onChange={handleChange}
-              />
-            </div>
+            <FormInput
+              name="name"
+              label="
+            Name of the resource"
+              value={data.name}
+              handleChange={handleChange}
+              errors={errors}
+            />
             <div className="flex flex-col gap-y-2">
               <label className="text-textgray" htmlFor="type">
                 Resource type
@@ -200,58 +196,46 @@ const AvailableForm = () => {
                 />
               </div>
             )}
-            <div className="flex flex-col gap-y-2">
-              <label className="text-textgray" htmlFor="address">
-                Address
-              </label>
-              <input
-                className="w-full bg-gray300 p-4 rounded-md"
-                type="text"
-                name="address"
-                id="address"
-                value={data.address}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <label className="text-textgray" htmlFor="contactName">
-                Contact name
-              </label>
-              <input
-                className="w-full bg-gray300 p-4 rounded-md"
-                type="text"
-                name="contactName"
-                id="contactName"
-                value={data.contactName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <label className="text-textgray" htmlFor="phoneNumber">
-                Phone number
-              </label>
-              <input
-                className="w-full bg-gray300 p-4 rounded-md"
-                type="text"
-                name="phoneNumber"
-                id="phoneNumber"
-                value={data.phoneNumber}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <label className="text-textgray" htmlFor="source">
-                Information Source
-              </label>
-              <input
-                className="w-full bg-gray300 p-4 rounded-md"
-                type="text"
-                name="source"
-                id="source"
-                value={data.source}
-                onChange={handleChange}
-              />
-            </div>
+            <FormInput
+              name="address"
+              label="
+            Address"
+              value={data.address}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <FormInput
+              name="contactName"
+              label="
+            Contact Name"
+              value={data.contactName}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <FormInput
+              name="phoneNumber"
+              label="
+            Phone Number"
+              value={data.phoneNumber}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <FormInput
+              name="source"
+              label="
+            Information Source"
+              value={data.source}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <FormInput
+              name="description"
+              label="
+            Description"
+              value={data.description}
+              handleChange={handleChange}
+              errors={errors}
+            />
             <div>
               <button className="bg-primary rounded-md md:rounded-full w-full p-2 text-4xl text-white">
                 Submit
