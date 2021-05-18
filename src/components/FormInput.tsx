@@ -31,11 +31,7 @@ const FormInput = ({
         value={value}
         onChange={handleChange}
       />
-      {
-        <div className="h-4">
-          {errors[name] && <div className="text-textred">{errors[name]}</div>}
-        </div>
-      }
+      {errors[name] && <div className="text-textred">{errors[name]}</div>}
     </div>
   );
 };

@@ -7,8 +7,9 @@ import TabView from "../src/components/TabView";
 import AvailableTab from "../src/components/AvailableTab";
 import RequestTab from "../src/components/RequestTab";
 import { TabInterface, SelectOption } from "../src/interfaces/interface";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CityModal from "../src/components/CityModal";
+import LocationService from "../src/services/LocationService";
 const Home = (): JSX.Element => {
   const resourceList: SelectOption[] = [
     { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
@@ -19,6 +20,8 @@ const Home = (): JSX.Element => {
     { label: "Ambulance", value: 5, icon: "/images/ambulance.svg" },
   ];
   const [activeTab, setActiveTab] = useState(0);
+
+  const [showModal, setShowModal] = useState(false);
   const handleClick = (tab: number) => {
     setActiveTab(tab);
   };
@@ -37,6 +40,33 @@ const Home = (): JSX.Element => {
       },
     },
   ];
+  useEffect(() => {
+    const firstVisit: boolean = JSON.parse(localStorage.getItem("firstVisit"));
+    const locationPermissionDenied: boolean = JSON.parse(
+      localStorage.getItem("locationPermissionDenied")
+    );
+    const locationService = async () => {
+      const locationService = new LocationService();
+      try {
+        await locationService.getLocation();
+      } catch (e) {
+        console.log(e);
+        if (e === GeolocationPositionError.PERMISSION_DENIED) {
+          localStorage.setItem(
+            "locationPermissionDenied",
+            JSON.stringify(true)
+          );
+        }
+        if (firstVisit !== false) {
+          setShowModal(true);
+        }
+      }
+    };
+    if(locationPermissionDenied !== true) {
+      locationService();
+    }
+    localStorage.setItem("firstVisit", JSON.stringify(false));
+  }, []);
   return (
     <>
       <Layout selectedKey={0}>
@@ -73,6 +103,7 @@ const Home = (): JSX.Element => {
           </div>
         </section>
       </Layout>
+      {showModal && <CityModal handleClick={setShowModal}/>}
     </>
   );
 };
