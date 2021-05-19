@@ -103,7 +103,7 @@ const Home = (): JSX.Element => {
           </div>
         </section>
       </Layout>
-      {showModal && <CityModal handleClick={setShowModal}/>}
+      {showModal && <CityModal setShowModal={setShowModal}/>}
     </>
   );
 };
