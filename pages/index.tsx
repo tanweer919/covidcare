@@ -20,7 +20,7 @@ const Home = (): JSX.Element => {
     { label: "Ambulance", value: 5, icon: "/images/ambulance.svg" },
   ];
   const [activeTab, setActiveTab] = useState(0);
-
+  const [currentCity, setCurrentCity] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const handleClick = (tab: number) => {
     setActiveTab(tab);
@@ -48,7 +48,8 @@ const Home = (): JSX.Element => {
     const locationService = async () => {
       const locationService = new LocationService();
       try {
-        await locationService.getLocation();
+        const city = await locationService.getLocation();
+        setCurrentCity(city);
       } catch (e) {
         console.log(e);
         if (e === GeolocationPositionError.PERMISSION_DENIED) {
@@ -62,7 +63,7 @@ const Home = (): JSX.Element => {
         }
       }
     };
-    if(locationPermissionDenied !== true) {
+    if (locationPermissionDenied !== true) {
       locationService();
     }
     localStorage.setItem("firstVisit", JSON.stringify(false));
@@ -95,6 +96,21 @@ const Home = (): JSX.Element => {
               <SearchButton />
             </div>
           </div>
+          {currentCity && (
+            <div className="flex justify-start mt-4 items-center">
+              <div className="text-textgray text-3xl">Current Location: </div>
+              <div className="text-3xl flex justify-between items-center gap-x-1">
+                <span>
+                  <img
+                    src="/images/location.svg"
+                    alt="location"
+                    className="h-6"
+                  />
+                </span>
+                <span>{currentCity}</span>
+              </div>
+            </div>
+          )}
           <div className="mt-2">
             <TabBar tabs={tabs} activeTab={activeTab} />
           </div>
@@ -103,7 +119,12 @@ const Home = (): JSX.Element => {
           </div>
         </section>
       </Layout>
-      {showModal && <CityModal setShowModal={setShowModal}/>}
+      {showModal && (
+        <CityModal
+          setShowModal={setShowModal}
+          setCurrentCity={setCurrentCity}
+        />
+      )}
     </>
   );
 };

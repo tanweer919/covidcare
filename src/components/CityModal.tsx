@@ -4,8 +4,10 @@ import HttpService from "../services/HttpService";
 import LoadingSpinner from "./LoadingSpinner";
 const CityModal = ({
   setShowModal,
+  setCurrentCity
 }: {
   setShowModal: (value: React.SetStateAction<boolean>) => void;
+  setCurrentCity: (value: React.SetStateAction<string>) => void;
 }): JSX.Element => {
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState<AutoComplete[]>([]);
@@ -48,18 +50,17 @@ const CityModal = ({
     }, [ref]);
   };
 
-  const handleSave = async() => {
+  const handleSave = async () => {
     setIsLoading(true);
-    const { data } = await client.post(
-      "/place",
-      {
-        placeId,
-      }
-    );
+    const { data } = await client.post("/place/id", {
+      placeId,
+    });
     localStorage.setItem("lat", JSON.stringify(data?.lat));
     localStorage.setItem("long", JSON.stringify(data.lng));
+    localStorage.setItem("city", JSON.stringify(data?.city));
     localStorage.setItem("locationSet", JSON.stringify(true));
     setIsLoading(false);
+    setCurrentCity(data?.city);
     setShowModal(false);
   };
 
