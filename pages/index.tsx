@@ -10,6 +10,7 @@ import { TabInterface, SelectOption } from "../src/interfaces/interface";
 import { useEffect, useState } from "react";
 import CityModal from "../src/components/CityModal";
 import LocationService from "../src/services/LocationService";
+import {FIRSTVISIT, LOCATIONPERMISSIONDENIED,} from "../src/constants/constants"
 const Home = (): JSX.Element => {
   const resourceList: SelectOption[] = [
     { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
@@ -41,9 +42,9 @@ const Home = (): JSX.Element => {
     },
   ];
   useEffect(() => {
-    const firstVisit: boolean = JSON.parse(localStorage.getItem("firstVisit"));
+    const firstVisit: boolean = JSON.parse(localStorage.getItem(FIRSTVISIT));
     const locationPermissionDenied: boolean = JSON.parse(
-      localStorage.getItem("locationPermissionDenied")
+      localStorage.getItem(LOCATIONPERMISSIONDENIED)
     );
     const locationService = async () => {
       const locationService = new LocationService();
@@ -54,7 +55,7 @@ const Home = (): JSX.Element => {
         console.log(e);
         if (e === GeolocationPositionError.PERMISSION_DENIED) {
           localStorage.setItem(
-            "locationPermissionDenied",
+            LOCATIONPERMISSIONDENIED,
             JSON.stringify(true)
           );
         }
@@ -66,7 +67,7 @@ const Home = (): JSX.Element => {
     if (locationPermissionDenied !== true) {
       locationService();
     }
-    localStorage.setItem("firstVisit", JSON.stringify(false));
+    localStorage.setItem(FIRSTVISIT, JSON.stringify(false));
   }, []);
   return (
     <>

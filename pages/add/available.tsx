@@ -3,6 +3,7 @@ import SelectDropdown from "../../src/components/SelectDropdown";
 import { SelectOption } from "../../src/interfaces/interface";
 import Layout from "../../src/components/Layout";
 import { useEffect, useState } from "react";
+import { LAT, LONG, CITY, LOCATIONSET } from "../../src/constants/constants";
 import {
   AvailableResourceData,
   FormErrors,
@@ -117,7 +118,6 @@ const AvailableForm = () => {
     e.preventDefault();
     const errors = validateForm();
     if (errors === null) {
-      console.log("Form submitted");
     } else {
       setErrors(errors);
     }

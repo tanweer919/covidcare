@@ -1,16 +1,17 @@
 import HttpService from "./HttpService";
+import { LAT, LONG, LOCATIONSET, CITY } from "../constants/constants";
 export default class LocationService {
   async showPosition(position: GeolocationPosition): Promise<string> {
     console.log(position);
-    localStorage.setItem("lat", JSON.stringify(position.coords.latitude));
-    localStorage.setItem("long", JSON.stringify(position.coords.longitude));
+    localStorage.setItem(LAT, JSON.stringify(position.coords.latitude));
+    localStorage.setItem(LONG, JSON.stringify(position.coords.longitude));
     const client = HttpService.getHttpClient();
     const { data: city } = await client.post("/city/latlng", {
       lat: position.coords.latitude,
       long: position.coords.longitude,
     });
-    localStorage.setItem("city", JSON.stringify(city));
-    localStorage.setItem("locationSet", JSON.stringify(true));
+    localStorage.setItem(CITY, JSON.stringify(city));
+    localStorage.setItem(LOCATIONSET, JSON.stringify(true));
     return city
   }
   showError(error: GeolocationPositionError, reject: (reason?: any) => void) {}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { AutoComplete } from "../interfaces/interface";
 import HttpService from "../services/HttpService";
 import LoadingSpinner from "./LoadingSpinner";
+import {LAT, LONG, LOCATIONSET, CITY} from "../constants/constants"
 const CityModal = ({
   setShowModal,
   setCurrentCity
@@ -55,10 +56,10 @@ const CityModal = ({
     const { data } = await client.post("/place/id", {
       placeId,
     });
-    localStorage.setItem("lat", JSON.stringify(data?.lat));
-    localStorage.setItem("long", JSON.stringify(data.lng));
-    localStorage.setItem("city", JSON.stringify(data?.city));
-    localStorage.setItem("locationSet", JSON.stringify(true));
+    localStorage.setItem(LAT, JSON.stringify(data?.lat));
+    localStorage.setItem(LOCATIONSET, JSON.stringify(data.lng));
+    localStorage.setItem(CITY, JSON.stringify(data?.city));
+    localStorage.setItem(LOCATIONSET, JSON.stringify(true));
     setIsLoading(false);
     setCurrentCity(data?.city);
     setShowModal(false);
