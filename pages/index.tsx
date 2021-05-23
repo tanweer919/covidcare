@@ -10,7 +10,15 @@ import { TabInterface, SelectOption } from "../src/interfaces/interface";
 import { useEffect, useState } from "react";
 import CityModal from "../src/components/CityModal";
 import LocationService from "../src/services/LocationService";
-import {FIRSTVISIT, LOCATIONPERMISSIONDENIED,} from "../src/constants/constants"
+import {
+  FIRSTVISIT,
+  LOCATIONPERMISSIONDENIED,
+  SUCCESS,
+  INFO,
+  ERROR,
+} from "../src/constants/constants";
+import { useRouter } from "next/router";
+import { toast, ToastOptions } from "react-toastify";
 const Home = (): JSX.Element => {
   const resourceList: SelectOption[] = [
     { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
@@ -26,6 +34,8 @@ const Home = (): JSX.Element => {
   const handleClick = (tab: number) => {
     setActiveTab(tab);
   };
+
+  const router = useRouter();
   const children = [<AvailableTab />, <RequestTab />];
   const tabs: TabInterface[] = [
     {
@@ -54,10 +64,7 @@ const Home = (): JSX.Element => {
       } catch (e) {
         console.log(e);
         if (e === GeolocationPositionError.PERMISSION_DENIED) {
-          localStorage.setItem(
-            LOCATIONPERMISSIONDENIED,
-            JSON.stringify(true)
-          );
+          localStorage.setItem(LOCATIONPERMISSIONDENIED, JSON.stringify(true));
         }
         if (firstVisit !== false) {
           setShowModal(true);
@@ -68,6 +75,25 @@ const Home = (): JSX.Element => {
       locationService();
     }
     localStorage.setItem(FIRSTVISIT, JSON.stringify(false));
+    const { message, type } = router.query;
+    if (message) {
+      const toastOption: ToastOptions = {
+        position: "top-right",
+        autoClose: 8000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      };
+      if (type === SUCCESS) {
+        toast.dark(message, toastOption);
+      } else if (type === ERROR) {
+        toast.error(message, toastOption);
+      } else {
+        toast.info(message, toastOption);
+      }
+    }
   }, []);
   return (
     <>

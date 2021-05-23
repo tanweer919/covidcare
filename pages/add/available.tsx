@@ -3,17 +3,21 @@ import SelectDropdown from "../../src/components/SelectDropdown";
 import { SelectOption } from "../../src/interfaces/interface";
 import Layout from "../../src/components/Layout";
 import { useEffect, useState } from "react";
-import { LAT, LONG, CITY, LOCATIONSET } from "../../src/constants/constants";
+import { LAT, LONG, CITY, LOCATIONSET, SUCCESS} from "../../src/constants/constants";
 import {
   AvailableResourceData,
   FormErrors,
 } from "../../src/interfaces/interface";
 import FormInput from "../../src/components/FormInput";
 import Joi from "joi";
+import ResourceService from "../../src/services/ResourceService";
+import { useRouter } from "next/router";
+import LoadingSpinner from "../../src/components/LoadingSpinner";
+
 const AvailableForm = () => {
   const [data, setData] = useState<AvailableResourceData>({
     name: "",
-    type: 1,
+    type: 0,
     description: "",
     contactName: "",
     phoneNumber: "",
@@ -25,7 +29,9 @@ const AvailableForm = () => {
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
-
+  const [isCurrentCity, setIsCurrentCity] = useState(true);
+  const [city, setCity] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const schema = {
     name: Joi.string().required().messages({
       "string.empty": "Name is required",
@@ -56,14 +62,30 @@ const AvailableForm = () => {
       "string.required": "Information source is required",
       "string.empty": "Information source is required",
     }),
+    description: Joi.string().allow("").optional(),
+    city: Joi.string().allow("").optional(),
+    location: Joi.array().optional(),
   };
 
-  useEffect(() => {}, []);
-  const [isCurrentCity, setIsCurrentCity] = useState(true);
+  useEffect(() => {
+    const city = localStorage.getItem(CITY);
+    setCity(city);
+    const locationSet = JSON.parse(localStorage.getItem(LOCATIONSET));
+    if (locationSet) {
+      const lat: number = JSON.parse(localStorage.getItem(LAT));
+      const long: number = JSON.parse(localStorage.getItem(LONG));
+      if (city) {
+        setData({ ...data, location: [lat, long], city });
+      } else {
+        setData({ ...data, location: [lat, long] });
+      }
+    }
+  }, []);
   const handleSwitchChange = () => {
     setIsCurrentCity(!isCurrentCity);
   };
 
+  const router = useRouter();
   const resourceList: SelectOption[] = [
     { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
     { label: "Hospital Beds", value: 1, icon: "/images/hospital-bed.svg" },
@@ -114,10 +136,26 @@ const AvailableForm = () => {
     return null;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors = validateForm();
     if (errors === null) {
+      setIsLoading(true);
+      const result = await ResourceService.createResource(data);
+      setIsLoading(false);
+      if (result) {
+        router.push(
+          {
+            pathname: "/",
+            query: {
+              message:
+                "Data provided by you is submitted for verification. You can view the data once it is verified. Thanks for contributing to the project👏.",
+              type: SUCCESS
+            },
+          },
+          "/"
+        );
+      }
     } else {
       setErrors(errors);
     }
@@ -128,7 +166,7 @@ const AvailableForm = () => {
       <AppBar label="Add available resource" />
       <Layout selectedKey={0} displayBottomNavbar={false}>
         <>
-          <div className="bg-primary p-12 md:p-20 mb-8 md:mx-80">
+          <div className="bg-primary p-12 md:p-20 mb-12 md:mx-80">
             <h1 className="text-white text-4xl mb-4 w-fit mx-auto text-center">
               Add Verified Information
             </h1>
@@ -164,25 +202,27 @@ const AvailableForm = () => {
               </label>
               <SelectDropdown itemList={availablityList} />
             </div>
-            <div className="flex justify-between">
-              <label className="text-textgray text-3xl" htmlFor="currentCity">
-                Current city
-              </label>
-              <div
-                className={`${
-                  isCurrentCity ? "bg-primary" : "bg-gray400"
-                } rounded-full w-16 transition-all duration-200 relative`}
-                onClick={handleSwitchChange}
-                id="currentCity"
-              >
+            {city && (
+              <div className="flex justify-between">
+                <label className="text-textgray text-3xl" htmlFor="currentCity">
+                  Current city
+                </label>
                 <div
-                  className={`absolute top-1 ${
-                    isCurrentCity ? "right-1" : "left-1"
-                  } rounded-full w-7 h-7 bg-white pt-1`}
-                ></div>
+                  className={`${
+                    isCurrentCity ? "bg-primary" : "bg-gray400"
+                  } rounded-full w-16 transition-all duration-200 relative`}
+                  onClick={handleSwitchChange}
+                  id="currentCity"
+                >
+                  <div
+                    className={`absolute top-1 ${
+                      isCurrentCity ? "right-1" : "left-1"
+                    } rounded-full w-7 h-7 bg-white pt-1`}
+                  ></div>
+                </div>
               </div>
-            </div>
-            {!isCurrentCity && (
+            )}
+            {(!city || !isCurrentCity) && (
               <div className="flex flex-col gap-y-2">
                 <label className="text-textgray" htmlFor="city">
                   City
@@ -247,8 +287,8 @@ const AvailableForm = () => {
               <div>- Required</div>
             </div>
             <div>
-              <button className="bg-primary rounded-md md:rounded-full w-full p-2 text-4xl text-white">
-                Submit
+              <button className="bg-primary rounded-md md:rounded-full w-full p-2 text-4xl text-white flex justify-center">
+                {isLoading ? <LoadingSpinner /> : "Submit"}
               </button>
             </div>
           </form>

@@ -4,3 +4,6 @@ export const LAT = "lat";
 export const LONG = "long";
 export const CITY = "city";
 export const LOCATIONSET = "locationSet";
+export const SUCCESS = "success";
+export const INFO = "info";
+export const ERROR = "error";
