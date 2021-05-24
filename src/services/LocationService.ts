@@ -10,7 +10,7 @@ export default class LocationService {
       lat: position.coords.latitude,
       long: position.coords.longitude,
     });
-    localStorage.setItem(CITY, JSON.stringify(city));
+    localStorage.setItem(CITY, city);
     localStorage.setItem(LOCATIONSET, JSON.stringify(true));
     return city
   }

@@ -1,9 +1,15 @@
 import AppBar from "../../src/components/AppBar";
 import SelectDropdown from "../../src/components/SelectDropdown";
-import { SelectOption } from "../../src/interfaces/interface";
+import { AutoComplete, SelectOption } from "../../src/interfaces/interface";
 import Layout from "../../src/components/Layout";
-import { useEffect, useState } from "react";
-import { LAT, LONG, CITY, LOCATIONSET, SUCCESS} from "../../src/constants/constants";
+import { useEffect, useRef, useState } from "react";
+import {
+  LAT,
+  LONG,
+  CITY,
+  LOCATIONSET,
+  SUCCESS,
+} from "../../src/constants/constants";
 import {
   AvailableResourceData,
   FormErrors,
@@ -13,7 +19,7 @@ import Joi from "joi";
 import ResourceService from "../../src/services/ResourceService";
 import { useRouter } from "next/router";
 import LoadingSpinner from "../../src/components/LoadingSpinner";
-
+import HttpService from "../../src/services/HttpService";
 const AvailableForm = () => {
   const [data, setData] = useState<AvailableResourceData>({
     name: "",
@@ -32,6 +38,8 @@ const AvailableForm = () => {
   const [isCurrentCity, setIsCurrentCity] = useState(true);
   const [city, setCity] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState<AutoComplete[]>([]);
+  const box = useRef(null);
   const schema = {
     name: Joi.string().required().messages({
       "string.empty": "Name is required",
@@ -141,7 +149,7 @@ const AvailableForm = () => {
     const errors = validateForm();
     if (errors === null) {
       setIsLoading(true);
-      const result = await ResourceService.createResource(data);
+      const result = await ResourceService.createAvailableResource(data);
       setIsLoading(false);
       if (result) {
         router.push(
@@ -150,7 +158,7 @@ const AvailableForm = () => {
             query: {
               message:
                 "Data provided by you is submitted for verification. You can view the data once it is verified. Thanks for contributing to the project👏.",
-              type: SUCCESS
+              type: SUCCESS,
             },
           },
           "/"
@@ -160,6 +168,43 @@ const AvailableForm = () => {
       setErrors(errors);
     }
   };
+
+  const handleCityChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const client = HttpService.getHttpClient();
+    const value = e.currentTarget.value;
+    setCity(value);
+    if (value !== "") {
+      const { data }: { data: AutoComplete[] } = await client.post(
+        "/autocomplete",
+        {
+          input: value,
+        }
+      );
+      setSuggestions(data);
+    }
+  };
+
+  const handleSuggestionItemClick = (item: AutoComplete) => {
+    setData({ ...data, city: item.term });
+    setCity(item.term);
+    setSuggestions([]);
+  };
+
+  const handleFocusOut = (ref: React.MutableRefObject<any>) => {
+    useEffect(() => {
+      // Function for click event
+      function handleOutsideClick(event: MouseEvent): any {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setSuggestions([]);
+        }
+      }
+
+      // Adding click event listener
+      document.addEventListener("click", handleOutsideClick);
+    }, [ref]);
+  };
+
+  handleFocusOut(box);
 
   return (
     <>
@@ -227,14 +272,34 @@ const AvailableForm = () => {
                 <label className="text-textgray" htmlFor="city">
                   City
                 </label>
-                <input
-                  className="w-full bg-gray300 p-4 rounded-md border-gray400 border-2"
-                  type="text"
-                  name="city"
-                  id="city"
-                  value={data.city}
-                  onChange={handleChange}
-                />
+                <div className="w-full searchbox-container" ref={box}>
+                  <input
+                    className="w-full bg-gray300 p-4 rounded-md border-gray400 border-2"
+                    type="text"
+                    id="city"
+                    name="city"
+                    value={city}
+                    onChange={handleCityChange}
+                  />
+                  <div className="autocomplete-container">
+                    {suggestions.map((suggestion, i) => (
+                      <div
+                        className="autocomplete-item"
+                        key={i}
+                        onClick={() => {
+                          handleSuggestionItemClick(suggestion);
+                        }}
+                      >
+                        <img
+                          src="/images/location.svg"
+                          alt="location_pin"
+                          className="h-6 mr-2"
+                        />
+                        <span>{suggestion.term}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
             <FormInput

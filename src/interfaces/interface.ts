@@ -17,6 +17,18 @@ export interface AvailableResourceData {
   source: string;
 }
 
+export interface ResourceRequestData {
+  name: string;
+  type: number;
+  description: string;
+  contactName: string;
+  phoneNumber: string;
+  location: number[];
+  city: string;
+  address: string;
+  quantity: string;
+}
+
 export interface TabInterface {
   label: string;
   onClick: () => void;
