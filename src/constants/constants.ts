@@ -7,3 +7,5 @@ export const LOCATIONSET = "locationSet";
 export const SUCCESS = "success";
 export const INFO = "info";
 export const ERROR = "error";
+export const AVAILABLERESOURCE = "availableResource";
+export const RESOURCEREQUEST = "resourceRequest";

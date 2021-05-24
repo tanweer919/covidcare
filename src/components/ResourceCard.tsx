@@ -1,18 +1,38 @@
 import { useState } from "react";
-import {useRouter } from "next/router"
-const ResourceCard = (): JSX.Element => {
+import { useRouter } from "next/router";
+import { AvailableResource, ResourceRequest } from "../interfaces/interface";
+import { AVAILABLERESOURCE, RESOURCEREQUEST } from "../constants/constants";
+const ResourceCard = ({
+  resource,
+  type,
+}: {
+  resource: AvailableResource | ResourceRequest;
+  type: string;
+}): JSX.Element => {
   const router = useRouter();
   const [liked, setLiked] = useState<boolean | null>(null);
-  const [totalLike, setTotalLike] = useState(0)
-  const handleClick = (liked: boolean) => {
+  const [totalLike, setTotalLike] = useState(0);
+  const handleClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    liked: boolean
+  ) => {
+    e.stopPropagation();
     setLiked(liked);
-    setTotalLike(totalLike + (liked ? 1 : -1))
+    setTotalLike(totalLike + (liked ? 1 : -1));
   };
   const handleCardClick = () => {
-    router.push("/resource/123");
-  }
+    if (type === AVAILABLERESOURCE) {
+      router.push(`/available/${resource._id}`);
+    }
+    if (type === RESOURCEREQUEST) {
+      router.push(`/request/${resource._id}`);
+    }
+  };
   return (
-    <div className="flex px-4 py-8 rounded-3xl shadow-lg cursor-pointer" onClick={handleCardClick}>
+    <div
+      className="flex px-4 py-8 rounded-3xl shadow-lg cursor-pointer"
+      onClick={handleCardClick}
+    >
       <div className="flex flex-col flex-grow-0 border-r-2 border-gray300 p-4">
         <span className="text-xl">8 March</span>
         <span className="text-xl">8:00 PM</span>
@@ -26,14 +46,14 @@ const ResourceCard = (): JSX.Element => {
           />
         </div>
         <div className="flex flex-col flex-grow">
-          <span className="text-3xl">Oxygen</span>
-          <span className="text-2xl text-textgray">Koderma</span>
+          <span className="text-3xl">{resource.name}</span>
+          <span className="text-2xl text-textgray">{resource.city}</span>
         </div>
       </div>
-      <div className="flex flex-col flex-grow-0 border-l-2 border-gray300 p-4 gap-y-2">
+      <div className="flex flex-col flex-grow-0 border-l-2 border-gray300 p-4 gap-y-4">
         <div
-          onClick={() => {
-            handleClick(true);
+          onClick={(e) => {
+            handleClick(e, true);
           }}
           className="relative"
         >
@@ -44,17 +64,17 @@ const ResourceCard = (): JSX.Element => {
                 : "/images/thumbs-up.png"
             }
             alt="blood"
-            className={`h-10${!(liked === true) ? " icon-avatar-color" : ""}`}
+            className={`h-8${!(liked === true) ? " icon-avatar-color" : ""}`}
           />
           {totalLike > 0 && (
-            <div className="flex justify-center items-center bg-secondary rounded-full h-8 w-8 text-white absolute -top-4 left-8">
+            <div className="flex justify-center items-center bg-secondary rounded-full h-6 w-6 text-white absolute -top-4 left-8">
               <span className="text-lg">{totalLike}</span>
             </div>
           )}
         </div>
         <div
-          onClick={() => {
-            handleClick(false);
+          onClick={(e) => {
+            handleClick(e, false);
           }}
           className="relative"
         >
@@ -65,10 +85,10 @@ const ResourceCard = (): JSX.Element => {
                 : "/images/thumbs-down.png"
             }
             alt="blood"
-            className={`h-10${!(liked === false) ? " icon-avatar-color" : ""}`}
+            className={`h-8${!(liked === false) ? " icon-avatar-color" : ""}`}
           />
           {totalLike < 0 && (
-            <div className="flex justify-center items-center bg-secondary rounded-full h-8 w-8 text-white text-xl absolute -bottom-4 left-8">
+            <div className="flex justify-center items-center bg-secondary rounded-full h-6 w-6 text-white text-xl absolute -bottom-4 left-8">
               <span className="text-lg">{totalLike}</span>
             </div>
           )}

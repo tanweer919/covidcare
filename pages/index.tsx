@@ -6,7 +6,7 @@ import TabBar from "../src/components/TabBar";
 import TabView from "../src/components/TabView";
 import AvailableTab from "../src/components/AvailableTab";
 import RequestTab from "../src/components/RequestTab";
-import { TabInterface, SelectOption } from "../src/interfaces/interface";
+import { TabInterface, SelectOption, AvailableResource } from "../src/interfaces/interface";
 import { useEffect, useState } from "react";
 import CityModal from "../src/components/CityModal";
 import LocationService from "../src/services/LocationService";

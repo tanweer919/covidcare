@@ -29,6 +29,33 @@ export interface ResourceRequestData {
   quantity: string;
 }
 
+export interface AvailableResource {
+  _id: string;
+  name: string;
+  type: number;
+  description: string;
+  contactName: string;
+  phoneNumber: string;
+  city: string;
+  address: string;
+  available: number;
+  source: string;
+  like: number;
+}
+
+export interface ResourceRequest {
+  _id: string;
+  name: string;
+  type: number;
+  description: string;
+  contactName: string;
+  phoneNumber: string;
+  city: string;
+  address: string;
+  quantity: string;
+  like: number;
+}
+
 export interface TabInterface {
   label: string;
   onClick: () => void;
