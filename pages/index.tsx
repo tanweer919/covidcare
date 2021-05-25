@@ -150,7 +150,7 @@ const Home = (): JSX.Element => {
               />
             </div>
             <div className="md:col-span-1">
-              <SearchButton />
+              <SearchButton searchData={searchData}/>
             </div>
           </div>
           {currentCity && (

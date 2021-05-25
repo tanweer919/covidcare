@@ -95,4 +95,36 @@ export default class ResourceService {
     }
     return null;
   }
+
+  static async searchAvailableResources(
+    placeId: string,
+    type: number
+  ): Promise<AvailableResource[] | null> {
+    const client = HttpService.getHttpClient();
+    const response = await client.post("/available/search", { placeId, type });
+    if (response.status === 200) {
+      const { data }: { data: AvailableResource[] } = response;
+      return data;
+    }
+    if (response.status === 404) {
+      return null;
+    }
+    return null;
+  }
+
+  static async searchResourceRequests(
+    placeId: string,
+    type: number
+  ): Promise<ResourceRequest[] | null> {
+    const client = HttpService.getHttpClient();
+    const response = await client.post("/request/search", { placeId, type });
+    if (response.status === 200) {
+      const { data }: { data: ResourceRequest[] } = response;
+      return data;
+    }
+    if (response.status === 404) {
+      return null;
+    }
+    return null;
+  }
 }

@@ -62,6 +62,10 @@ const ResourceRequestDetail = ({ resource }: { resource: ResourceRequest }) => {
         </div>
       </div>
       <div className="mt-2">
+        <div className="text-3xl text-textgray">Quantity Required</div>
+        <div className="text-3xl">{resource.quantity}</div>
+      </div>
+      <div className="mt-2">
         <div className="text-3xl text-textgray">Address</div>
         <div className="text-3xl">{resource.address}</div>
       </div>
