@@ -19,13 +19,6 @@ const Sidebar = ({ selectedKey }: propType): JSX.Element => {
   }
   const items: sidebarItem[] = [
     { label: "Home", icon: "home.svg", link: "/" },
-    { label: "Care", icon: "care.svg", link: "/care" },
-    {
-      label: "Chat",
-      icon: "chat.svg",
-      link: "/chat",
-    },
-    { label: "Feeds", icon: "newspaper.svg", link: "/news" },
   ];
   return (
     <nav className="sidebar hidden md:block ">

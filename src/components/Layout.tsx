@@ -15,7 +15,6 @@ const Layout = ({
     <div className="layout">
       <Sidebar selectedKey={selectedKey} />
       <div className="content">{children}</div>
-      {displayBottomNavbar && <BottomNavbar selectedKey={selectedKey} />}
       <ToastContainer style={{ fontSize: "1.6rem" }} />
     </div>
   );
