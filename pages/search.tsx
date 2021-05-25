@@ -28,15 +28,20 @@ const SearchPage = ({
       <AppBar label="Search Result" />
       <Layout selectedKey={0} displayBottomNavbar={false}>
         <>
-          <div className="m-4">
+          <div className="my-4">
             <h2 className="text-4xl text-textgray flex flex-row justify-start gap-x-2 items-center">
-              <span>Search result for</span>
+              <span>Search</span>
+              <span>result</span>
+              <span>for</span>
               <div className="text-3xl text-black p-2 bg-gray400">
                 {resourceList[type].label}
               </div>
               <span>around</span>
               <div className="text-3xl text-black p-2 bg-gray400">{city}</div>
             </h2>
+          </div>
+          <div className="text-textgray text-3xl">
+            {resources.length} results
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {resources ? (
