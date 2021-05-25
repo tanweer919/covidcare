@@ -6,7 +6,11 @@ import TabBar from "../src/components/TabBar";
 import TabView from "../src/components/TabView";
 import AvailableTab from "../src/components/AvailableTab";
 import RequestTab from "../src/components/RequestTab";
-import { TabInterface, SelectOption, AvailableResource } from "../src/interfaces/interface";
+import {
+  TabInterface,
+  SelectOption,
+  AvailableResource,
+} from "../src/interfaces/interface";
 import { useEffect, useState } from "react";
 import CityModal from "../src/components/CityModal";
 import LocationService from "../src/services/LocationService";
@@ -16,21 +20,21 @@ import {
   SUCCESS,
   INFO,
   ERROR,
+  resourceList,
+  resourceTypeList,
 } from "../src/constants/constants";
 import { useRouter } from "next/router";
 import { toast, ToastOptions } from "react-toastify";
 const Home = (): JSX.Element => {
-  const resourceList: SelectOption[] = [
-    { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
-    { label: "Hospital Beds", value: 1, icon: "/images/hospital-bed.svg" },
-    { label: "Medicines/Injections", value: 2, icon: "/images/medicine.svg" },
-    { label: "Testing", value: 3, icon: "/images/blood-test.svg" },
-    { label: "Blood", value: 4, icon: "/images/blood-drop.svg" },
-    { label: "Ambulance", value: 5, icon: "/images/ambulance.svg" },
-  ];
   const [activeTab, setActiveTab] = useState(0);
   const [currentCity, setCurrentCity] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [searchData, setSearchData] = useState({
+    searchCity: "",
+    type: 0,
+    resourceType: 0,
+    placeId: "",
+  });
   const handleClick = (tab: number) => {
     setActiveTab(tab);
   };
@@ -95,6 +99,15 @@ const Home = (): JSX.Element => {
       }
     }
   }, []);
+  const handleSelectChange = (key: string, value: number) => {
+    const newData = { ...searchData };
+    newData[key] = value;
+    setSearchData(newData);
+  };
+
+  const handleCitySelection = (city: string, placeId: string) => {
+    setSearchData({ ...searchData, searchCity: city, placeId });
+  };
   return (
     <>
       <Layout selectedKey={0}>
@@ -108,16 +121,33 @@ const Home = (): JSX.Element => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-end">
             <div className="md:col-start-2 md:col-span-2">
-              <SearchBox />
+              <SearchBox handleCitySelection={handleCitySelection} />
             </div>
-            <div className="md:col-span-3">
+            <div className="md:col-span-2">
               <label
                 id="listbox-label"
                 className="block text-3xl font-light text-primary mb-4"
               >
                 What are you looking for
               </label>
-              <SelectDropdown itemList={resourceList} />
+              <SelectDropdown
+                itemList={resourceList}
+                keyName="type"
+                handleSelectChange={handleSelectChange}
+              />
+            </div>
+            <div className="md:col-span-1">
+              <label
+                id="listbox-label"
+                className="block text-3xl font-light text-primary mb-4"
+              >
+                Resource Type
+              </label>
+              <SelectDropdown
+                itemList={resourceTypeList}
+                keyName="resourceType"
+                handleSelectChange={handleSelectChange}
+              />
             </div>
             <div className="md:col-span-1">
               <SearchButton />

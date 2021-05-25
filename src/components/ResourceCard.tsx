@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { AvailableResource, ResourceRequest } from "../interfaces/interface";
-import { AVAILABLERESOURCE, RESOURCEREQUEST } from "../constants/constants";
+import {
+  AVAILABLERESOURCE,
+  resourceList,
+  RESOURCEREQUEST,
+} from "../constants/constants";
 const ResourceCard = ({
   resource,
   type,
@@ -30,7 +34,7 @@ const ResourceCard = ({
   };
   return (
     <div
-      className="flex px-4 py-8 rounded-3xl shadow-lg cursor-pointer"
+      className="flex px-4 py-4 rounded-3xl shadow-lg cursor-pointer"
       onClick={handleCardClick}
     >
       <div className="flex flex-col flex-grow-0 border-r-2 border-gray300 p-4">
@@ -40,14 +44,20 @@ const ResourceCard = ({
       <div className="flex items-center justify-start flex-grow p-4 gap-4">
         <div className="h-16 w-16 p-4 rounded-full icon-avatar flex-grow-0">
           <img
-            src="/images/oxygen.svg"
-            alt="blood"
+            src={resourceList[resource.type].icon}
+            alt={resourceList[resource.type].label}
             className="icon-avatar-color"
           />
         </div>
         <div className="flex flex-col flex-grow">
           <span className="text-3xl">{resource.name}</span>
           <span className="text-2xl text-textgray">{resource.city}</span>
+          <div className="text-2xl text-textgray flex justify-start mt-2 gap-x-2">
+            <div className="rounded-full bg-gray400 p-2 h-8 w-8">
+              <img src="/images/phone.svg" alt="phone" />
+            </div>
+            <span>{resource.phoneNumber}</span>
+          </div>
         </div>
       </div>
       <div className="flex flex-col flex-grow-0 border-l-2 border-gray300 p-4 gap-y-4">

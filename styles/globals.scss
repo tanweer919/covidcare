@@ -39,13 +39,21 @@ a {
   background-color: #fcede6;
 }
 .icon-avatar-color {
-  filter: invert(56%) sepia(28%) saturate(951%) hue-rotate(317deg) brightness(95%) contrast(84%);
+  filter: invert(56%) sepia(28%) saturate(951%) hue-rotate(317deg)
+    brightness(95%) contrast(84%);
 }
 .w-fit {
   width: fit-content;
 }
-.loading-spinner{
+.loading-spinner {
   border: 0.3rem solid #e2e8f0;
   border-top: 0.3rem solid #ffffff;
   border-radius: 50%;
+}
+iframe[src*="ads-iframe"] {
+  display: none;
+}
+
+.div-cursor:hover {
+  cursor: pointer;
 }

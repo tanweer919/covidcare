@@ -39,6 +39,7 @@ export interface AvailableResource {
   city: string;
   address: string;
   available: number;
+  verified: number;
   source: string;
   like: number;
 }

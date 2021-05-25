@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ResourceDetail from "../../src/components/ResourceDetail";
+import ResourceRequestDetail from "../../src/components/ResourceRequestDetail";
 import { DiscussionEmbed } from "disqus-react";
 import AppBar from "../../src/components/AppBar";
 import Layout from "../../src/components/Layout";
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { ResourceRequest } from "../../src/interfaces/interface";
 import ResourceService from "../../src/services/ResourceService";
-const Resource = ({
+const ResourceRequestPage = ({
   id,
   resource,
 }: {
@@ -20,7 +20,7 @@ const Resource = ({
       <AppBar label="Resource Request" />
       <Layout selectedKey={0}>
         <>
-          <ResourceDetail />
+          <ResourceRequestDetail resource={resource}/>
           <div className="px-4">
             {id !== null && (
               <DiscussionEmbed
@@ -28,7 +28,7 @@ const Resource = ({
                 config={{
                   url: `${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`,
                   identifier: `${id}`,
-                  title: "Oxygen",
+                  title: resource.name,
                   language: "en",
                 }}
               />
@@ -50,4 +50,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default Resource;
+export default ResourceRequestPage;

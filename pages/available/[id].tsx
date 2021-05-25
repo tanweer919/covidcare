@@ -1,36 +1,35 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ResourceDetail from "../../src/components/ResourceDetail";
+import AvailableResourceDetail from "../../src/components/AvailableResourceDetail";
 import { DiscussionEmbed } from "disqus-react";
 import AppBar from "../../src/components/AppBar";
 import Layout from "../../src/components/Layout";
-const Resource = (): JSX.Element => {
+import { AvailableResource } from "../../src/interfaces/interface";
+import { GetServerSideProps } from "next";
+import ResourceService from "../../src/services/ResourceService";
+const AvailableResourcePage = ({
+  id,
+  resource,
+}: {
+  id: string;
+  resource: AvailableResource;
+}): JSX.Element => {
   const router = useRouter();
-  const [resourceId, setResourceId] = useState<number | null>(null);
-  const [url, setUrl] = useState("");
-  useEffect(() => {
-    if (router.isReady) {
-      console.log(router.query);
-      const { id } = router.query;
-      setResourceId(+id);
-      setUrl(`${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`);
-    }
-  }, []);
 
   return (
     <>
       <AppBar label="Available Resource" />
       <Layout selectedKey={0}>
         <>
-          <ResourceDetail />
+          <AvailableResourceDetail resource={resource} />
           <div className="px-4">
-            {resourceId !== null && (
+            {id !== null && (
               <DiscussionEmbed
                 shortname={process.env.NEXT_PUBLIC_DISCUSS_SHORT_NAME}
                 config={{
-                  url: url,
-                  identifier: `${resourceId}`,
-                  title: "Oxygen",
+                  url: `${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`,
+                  identifier: `${id}`,
+                  title: resource.name,
                   language: "en",
                 }}
               />
@@ -42,4 +41,14 @@ const Resource = (): JSX.Element => {
   );
 };
 
-export default Resource;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const id: string = Array.isArray(context.params?.id)
+    ? context.params?.id[0]
+    : context.params?.id;
+  const response = await ResourceService.fetchAvailableResourceById(id);
+  return {
+    props: { id, resource: response },
+  };
+};
+
+export default AvailableResourcePage;

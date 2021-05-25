@@ -66,6 +66,21 @@ export default class ResourceService {
     return null;
   }
 
+  static async fetchAvailableResourceById(
+    id: string
+  ): Promise<AvailableResource | null> {
+    const client = HttpService.getHttpClient();
+    const response = await client.get(`/available/${id}`);
+    if (response.status === 200) {
+      const { data }: { data: AvailableResource } = response;
+      return data;
+    }
+    if (response.status === 404) {
+      return null;
+    }
+    return null;
+  }
+
   static async fetchResourceRequestById(
     id: string
   ): Promise<ResourceRequest | null> {

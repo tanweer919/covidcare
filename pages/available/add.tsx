@@ -9,6 +9,7 @@ import {
   CITY,
   LOCATIONSET,
   SUCCESS,
+  resourceList,
 } from "../../src/constants/constants";
 import {
   AvailableResourceData,
@@ -94,14 +95,6 @@ const AvailableForm = () => {
   };
 
   const router = useRouter();
-  const resourceList: SelectOption[] = [
-    { label: "Oxygen", value: 0, icon: "/images/oxygen.svg" },
-    { label: "Hospital Beds", value: 1, icon: "/images/hospital-bed.svg" },
-    { label: "Medicines/Injections", value: 2, icon: "/images/medicine.svg" },
-    { label: "Testing", value: 3, icon: "/images/blood-test.svg" },
-    { label: "Blood", value: 4, icon: "/images/blood-drop.svg" },
-    { label: "Ambulance", value: 5, icon: "/images/ambulance.svg" },
-  ];
 
   const availablityList: SelectOption[] = [
     { label: "Available", value: 1, icon: "/images/tick.svg" },
@@ -190,6 +183,13 @@ const AvailableForm = () => {
     setSuggestions([]);
   };
 
+  const handleSelectChange = (key: string, value: number) => {
+    console.log(key, value);
+    const newData = { ...data };
+    newData[key] = value;
+    setData(newData);
+  };
+
   const handleFocusOut = (ref: React.MutableRefObject<any>) => {
     useEffect(() => {
       // Function for click event
@@ -239,13 +239,21 @@ const AvailableForm = () => {
               <label className="text-textgray" htmlFor="type">
                 Resource type
               </label>
-              <SelectDropdown itemList={resourceList} />
+              <SelectDropdown
+                keyName="type"
+                itemList={resourceList}
+                handleSelectChange={handleSelectChange}
+              />
             </div>
             <div className="flex flex-col gap-y-2">
               <label className="text-textgray" htmlFor="availiblity">
                 Availablity
               </label>
-              <SelectDropdown itemList={availablityList} />
+              <SelectDropdown
+                keyName="available"
+                itemList={availablityList}
+                handleSelectChange={handleSelectChange}
+              />
             </div>
             {city && (
               <div className="flex justify-between">

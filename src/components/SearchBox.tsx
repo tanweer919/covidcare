@@ -2,7 +2,11 @@ import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import HttpService from "../services/HttpService";
 import { AutoComplete } from "../interfaces/interface";
 
-const SearchBox = (): JSX.Element => {
+const SearchBox = ({
+  handleCitySelection,
+}: {
+  handleCitySelection: (city: string, placeId: string) => void;
+}): JSX.Element => {
   const [focus, setFocus] = useState(false);
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState<AutoComplete[]>([]);
@@ -26,7 +30,7 @@ const SearchBox = (): JSX.Element => {
 
   const handleSuggestionItemClick = (item: AutoComplete) => {
     setLocation(item.term);
-    setPlaceId(item.placeId);
+    handleCitySelection(item.term, item.placeId);
     setSuggestions([]);
   };
 

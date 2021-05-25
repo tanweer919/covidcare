@@ -1,13 +1,22 @@
 import SelectItem from "./SelectItem";
 import { SelectOption } from "../interfaces/interface";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-const SelectDropdown = ({itemList}: {itemList: SelectOption[]}): JSX.Element => {
+const SelectDropdown = ({
+  itemList,
+  handleSelectChange,
+  keyName,
+}: {
+  itemList: SelectOption[];
+  keyName: string;
+  handleSelectChange: (key: string, value: number) => void;
+}): JSX.Element => {
   const box = useRef(null);
 
   const [selectedOption, setSelectedOption] = useState(itemList[0]);
   const [focus, setFocus] = useState(false);
   const handleChange = (option: SelectOption) => {
     setSelectedOption(option);
+    handleSelectChange(keyName,option.value);
     setFocus(false);
   };
 
