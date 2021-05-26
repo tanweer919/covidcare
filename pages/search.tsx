@@ -60,7 +60,7 @@ const SearchPage = ({
                 <img
                   src="/images/empty.svg"
                   alt="empty"
-                  className="h-2/5 w-2/5"
+                  className="h-1/2 w-1/2"
                 />
                 <span className="text-4xl text-textgray text-center">
                   No result matched your query
