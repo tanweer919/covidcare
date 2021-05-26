@@ -3,6 +3,12 @@
   "short_name": "Covid Care",
   "icons": [
     {
+      "src": "/images/icons/android-icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/images/icons/android-icon-36x36.png",
       "sizes": "36x36",
       "type": "image/png",
@@ -31,11 +37,19 @@
       "sizes": "256x256",
       "type": "image/png",
       "density": "4.0"
+    },
+    {
+      "src": "/images/icons/android-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": "5.0"
     }
   ],
   "theme_color": "#57c6ac",
   "background_color": "#FFFFFF",
   "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "scope": "/",
+  "splash_pages": null
 }
