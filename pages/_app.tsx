@@ -26,7 +26,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <title>Covid Care</title>
         <meta
           name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
       <Component {...pageProps} />
