@@ -36,7 +36,7 @@ const SearchPage = ({
         {city !== null && type != null && resourceType != null ? (
           <>
             <div className="my-4">
-              <h2 className="text-4xl text-textgray flex flex-row justify-start items-center">
+              <h2 className="text-4xl text-textgray flex flex-row justify-start items-center flex-wrap">
                 <span>Search result for </span>
                 <div className="text-3xl text-black p-2 bg-gray400">
                   {resourceList[type].label}

@@ -1,7 +1,6 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import HttpService from "../services/HttpService";
 import { AutoComplete } from "../interfaces/interface";
-
 const SearchBox = ({
   handleCitySelection,
 }: {
@@ -10,7 +9,6 @@ const SearchBox = ({
   const [focus, setFocus] = useState(false);
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState<AutoComplete[]>([]);
-  const [placeId, setPlaceId] = useState<string | null>(null);
   const box = useRef(null);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
