@@ -8,7 +8,8 @@ import { AvailableResource } from "../../src/interfaces/interface";
 import { GetServerSideProps } from "next";
 import ResourceService from "../../src/services/ResourceService";
 import Error from "next/error";
-import { Head } from "next/document";
+import Head from "next/head";
+
 const AvailableResourcePage = ({
   id,
   resource,

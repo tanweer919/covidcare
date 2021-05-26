@@ -8,7 +8,8 @@ import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { ResourceRequest } from "../../src/interfaces/interface";
 import ResourceService from "../../src/services/ResourceService";
 import Error from "next/error";
-import { Head } from "next/document";
+import Head from "next/head";
+
 const ResourceRequestPage = ({
   id,
   resource,

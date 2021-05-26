@@ -21,7 +21,8 @@ import ResourceService from "../../src/services/ResourceService";
 import { useRouter } from "next/router";
 import LoadingSpinner from "../../src/components/LoadingSpinner";
 import HttpService from "../../src/services/HttpService";
-import { Head } from "next/document";
+import Head from "next/head";
+
 const AvailableForm = () => {
   const [data, setData] = useState<AvailableResourceData>({
     name: "",

@@ -1,6 +1,6 @@
 import Layout from "../src/components/Layout";
 import Error from "next/error";
-import { Head } from "next/document";
+import Head from "next/head";
 const Custom404 = (): JSX.Element => {
   return (
     <>

@@ -13,7 +13,8 @@ import {
   RESOURCEREQUEST,
 } from "../src/constants/constants";
 import Error from "next/error";
-import { Head } from "next/document";
+import Head from "next/head";
+
 const SearchPage = ({
   resources,
   city,

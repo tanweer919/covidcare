@@ -7,7 +7,7 @@ import "nprogress/nprogress.css";
 import { AppProps } from "next/app";
 import NProgress from "nprogress";
 import Router from "next/router";
-import { Head } from "next/document";
+import Head from "next/head";
 NProgress.configure({
   minimum: 0.3,
   easing: "ease",
