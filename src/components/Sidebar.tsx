@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import SidebarIcon from "./SidebarIcon";
 
 interface propType {
-  selectedKey: number
+  selectedKey: number;
 }
 const Sidebar = ({ selectedKey }: propType): JSX.Element => {
   const router = useRouter();
@@ -12,18 +12,25 @@ const Sidebar = ({ selectedKey }: propType): JSX.Element => {
     router.push(url);
   };
 
+  const handleLogoClick = () => {
+    router.push("/");
+  };
+
   interface sidebarItem {
     label: string;
     icon: string;
     link: string;
   }
-  const items: sidebarItem[] = [
-    { label: "Home", icon: "home.svg", link: "/" },
-  ];
+  const items: sidebarItem[] = [{ label: "Home", icon: "home.svg", link: "/" }];
   return (
     <nav className="sidebar hidden md:block ">
       <div className="sidebar-logo__container">
-        <img className="sidebar-logo" src="/images/logo.png" alt="logo" />
+        <img
+          className="sidebar-logo div-cursor"
+          src="/images/logo.png"
+          alt="logo"
+          onClick={handleLogoClick}
+        />
       </div>
       {items.map((item: sidebarItem, i: number) => (
         <div

@@ -35,6 +35,7 @@ const Home = (): JSX.Element => {
     resourceType: 0,
     placeId: "",
   });
+  const [isError, setIsError] = useState(false);
   const handleClick = (tab: number) => {
     setActiveTab(tab);
   };
@@ -105,6 +106,7 @@ const Home = (): JSX.Element => {
   };
 
   const handleCitySelection = (city: string, placeId: string) => {
+    setIsError(false);
     setSearchData({ ...searchData, searchCity: city, placeId });
   };
   return (
@@ -121,6 +123,11 @@ const Home = (): JSX.Element => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-end">
             <div className="md:col-start-2 md:col-span-2">
               <SearchBox handleCitySelection={handleCitySelection} />
+              {isError && (
+                <div className="text-textred text-2xl">
+                  Select a city from autocomplete dropdown
+                </div>
+              )}
             </div>
             <div className="md:col-span-2">
               <label
@@ -149,7 +156,7 @@ const Home = (): JSX.Element => {
               />
             </div>
             <div className="md:col-span-1">
-              <SearchButton searchData={searchData}/>
+              <SearchButton searchData={searchData} setIsError={setIsError} />
             </div>
           </div>
           {currentCity && (

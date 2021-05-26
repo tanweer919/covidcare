@@ -222,12 +222,14 @@ const RequestForm = () => {
               />
             </div>
             {city && (
-              <div className="flex justify-between">
-                <label className="text-textgray text-3xl">Current city</label>
+              <div className="flex justify-between items-center">
+                <label className="text-textgray text-2xl">
+                  Required at your current location({city})
+                </label>
                 <div
                   className={`${
                     isCurrentCity ? "bg-primary" : "bg-gray400"
-                  } rounded-full w-16 transition-all duration-200 relative`}
+                  } rounded-full w-16 h-9 transition-all duration-200 relative`}
                   onClick={handleSwitchChange}
                 >
                   <div
