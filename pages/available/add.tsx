@@ -185,7 +185,6 @@ const AvailableForm = () => {
   };
 
   const handleSelectChange = (key: string, value: number) => {
-    console.log(key, value);
     const newData = { ...data };
     newData[key] = value;
     setData(newData);

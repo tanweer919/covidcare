@@ -66,7 +66,6 @@ const Home = (): JSX.Element => {
         const city = await locationService.getLocation();
         setCurrentCity(city);
       } catch (e) {
-        console.log(e);
         if (e === GeolocationPositionError.PERMISSION_DENIED) {
           localStorage.setItem(LOCATIONPERMISSIONDENIED, JSON.stringify(true));
         }

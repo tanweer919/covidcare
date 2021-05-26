@@ -2,7 +2,6 @@ import HttpService from "./HttpService";
 import { LAT, LONG, LOCATIONSET, CITY } from "../constants/constants";
 export default class LocationService {
   async showPosition(position: GeolocationPosition): Promise<string> {
-    console.log(position);
     localStorage.setItem(LAT, JSON.stringify(position.coords.latitude));
     localStorage.setItem(LONG, JSON.stringify(position.coords.longitude));
     const client = HttpService.getHttpClient();

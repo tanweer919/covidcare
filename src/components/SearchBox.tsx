@@ -62,7 +62,7 @@ const SearchBox = ({
           focus ? " search-box--active" : ""
         } md:rounded-full`}
       >
-        <img src="/images/search.svg" className="search-box__search-icon" />
+        <img src="/images/search.svg" className="search-box__search-icon" alt="searh icon"/>
         <input
           type="text"
           className="search-box__input"
