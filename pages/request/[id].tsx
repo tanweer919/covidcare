@@ -7,6 +7,7 @@ import Layout from "../../src/components/Layout";
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { ResourceRequest } from "../../src/interfaces/interface";
 import ResourceService from "../../src/services/ResourceService";
+import Error from "next/error";
 const ResourceRequestPage = ({
   id,
   resource,
@@ -19,35 +20,47 @@ const ResourceRequestPage = ({
     <>
       <AppBar label="Resource Request" />
       <Layout selectedKey={0}>
-        <>
-          <ResourceRequestDetail resource={resource}/>
-          <div className="px-4">
-            {id !== null && (
-              <DiscussionEmbed
-                shortname={process.env.NEXT_PUBLIC_DISCUSS_SHORT_NAME}
-                config={{
-                  url: `${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`,
-                  identifier: `${id}`,
-                  title: resource.name,
-                  language: "en",
-                }}
-              />
-            )}
-          </div>
-        </>
+        {id ? (
+          resource ? (
+            <>
+              <ResourceRequestDetail resource={resource} />
+              <div className="px-4">
+                <DiscussionEmbed
+                  shortname={process.env.NEXT_PUBLIC_DISCUSS_SHORT_NAME}
+                  config={{
+                    url: `${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`,
+                    identifier: `${id}`,
+                    title: resource.name,
+                    language: "en",
+                  }}
+                />
+              </div>
+            </>
+          ) : (
+            <Error statusCode={404} />
+          )
+        ) : (
+          <Error statusCode={400} />
+        )}
       </Layout>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id: string = Array.isArray(context.params?.id)
-    ? context.params?.id[0]
-    : context.params?.id;
-  const response = await ResourceService.fetchResourceRequestById(id);
-  return {
-    props: { id, resource: response },
-  };
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  res,
+}) => {
+  const id: string = Array.isArray(params?.id) ? params?.id[0] : params?.id;
+  try {
+    const response = await ResourceService.fetchResourceRequestById(id);
+    return {
+      props: { id, resource: response },
+    };
+  } catch {
+    res.statusCode = 404;
+    return { props: { id } };
+  }
 };
 
 export default ResourceRequestPage;

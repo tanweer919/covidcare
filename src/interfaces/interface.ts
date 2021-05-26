@@ -42,6 +42,7 @@ export interface AvailableResource {
   verified: number;
   source: string;
   like: number;
+  created: string;
 }
 
 export interface ResourceRequest {
@@ -55,6 +56,7 @@ export interface ResourceRequest {
   address: string;
   quantity: string;
   like: number;
+  created: string;
 }
 
 export interface TabInterface {

@@ -37,9 +37,21 @@ const ResourceCard = ({
       className="flex px-4 py-4 rounded-3xl shadow-lg cursor-pointer"
       onClick={handleCardClick}
     >
-      <div className="flex flex-col flex-grow-0 border-r-2 border-gray300 p-4">
-        <span className="text-xl">8 March</span>
-        <span className="text-xl">8:00 PM</span>
+      <div className="flex flex-col gap-y-2 flex-grow-0 border-r-2 border-gray300 p-4">
+        <span className="text-2xl">
+          {new Intl.DateTimeFormat("en-GB", {
+            month: "long",
+            day: "2-digit",
+          }).format(new Date(resource.created))}
+        </span>
+        <span className="text-xl">
+          {new Intl.DateTimeFormat("default", {
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
+            hour12: true,
+          }).format(new Date(resource.created))}
+        </span>
       </div>
       <div className="flex items-center justify-start flex-grow p-4 gap-4">
         <div className="h-16 w-16 p-4 rounded-full icon-avatar flex-grow-0">
