@@ -35,11 +35,39 @@ const RequestTab = (): JSX.Element => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {loaded ? (
           resourceRequests ? (
-            resourceRequests.map((resource, i) => (
-              <ResourceCard key={i} resource={resource} type={RESOURCEREQUEST}/>
-            ))
+            resourceRequests.length > 0 ? (
+              resourceRequests.map((resource, i) => (
+                <ResourceCard
+                  key={i}
+                  resource={resource}
+                  type={RESOURCEREQUEST}
+                />
+              ))
+            ) : (
+              <div className="h-full flex justify-center items-center flex-col gap-y-4">
+                <img
+                  src="/images/empty.svg"
+                  alt="empty"
+                  className="h-2/5 w-2/5"
+                />
+                <span className="text-4xl text-textgray">
+                  Unable to find any resource requests near you
+                </span>
+              </div>
+            )
           ) : (
-            <div></div>
+            <div>
+              <div className="h-full flex justify-center items-center flex-col gap-y-4">
+                <img
+                  src="/images/empty.svg"
+                  alt="empty"
+                  className="h-2/5 w-2/5"
+                />
+                <span className="text-4xl text-textgray">
+                  Unable to find any resource requests near you
+                </span>
+              </div>
+            </div>
           )
         ) : (
           items.map((e, i) => <ResourceCardSkelton key={i} />)
