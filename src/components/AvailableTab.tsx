@@ -44,26 +44,26 @@ const AvailableTab = (): JSX.Element => {
                 />
               ))
             ) : (
-              <div className="h-full flex justify-center items-center flex-col gap-y-4">
+              <div className="h-screen w-screen flex justify-center items-center flex-col gap-y-4">
                 <img
                   src="/images/empty.svg"
                   alt="empty"
                   className="h-2/5 w-2/5"
                 />
-                <span className="text-4xl text-textgray">
+                <span className="text-4xl text-textgray text-center">
                   Unable to find any available resources near you
                 </span>
               </div>
             )
           ) : (
             <div>
-              <div className="h-full flex justify-center items-center flex-col gap-y-4">
+              <div className="h-screen w-screen flex justify-center items-center flex-col gap-y-4">
                 <img
                   src="/images/empty.svg"
                   alt="empty"
                   className="h-2/5 w-2/5"
                 />
-                <span className="text-4xl text-textgray">
+                <span className="text-4xl text-textgray text-center">
                   Unable to find any available resources near you
                 </span>
               </div>

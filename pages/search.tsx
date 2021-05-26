@@ -62,7 +62,7 @@ const SearchPage = ({
                   alt="empty"
                   className="h-2/5 w-2/5"
                 />
-                <span className="text-4xl text-textgray">
+                <span className="text-4xl text-textgray text-center">
                   No result matched your query
                 </span>
               </div>
