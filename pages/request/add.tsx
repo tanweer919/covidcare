@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import ResourceService from "../../src/services/ResourceService";
 import LoadingSpinner from "../../src/components/LoadingSpinner";
 import HttpService from "../../src/services/HttpService";
+import { Head } from "next/document";
 const RequestForm = () => {
   const [data, setData] = useState<ResourceRequestData>({
     name: "",
@@ -161,7 +162,7 @@ const RequestForm = () => {
   };
 
   const handleSelectChange = (key: string, value: number) => {
-    const newData = {...data}
+    const newData = { ...data };
     newData[key] = value;
     setData(newData);
   };
@@ -184,7 +185,10 @@ const RequestForm = () => {
 
   return (
     <>
-      <AppBar label="Request resource" />
+      <Head>
+        <title>Add resource request</title>
+      </Head>
+      <AppBar label="Add resource request" />
       <Layout selectedKey={0}>
         <>
           <div className="bg-primary p-12 md:p-20 mb-8 md:mx-80">

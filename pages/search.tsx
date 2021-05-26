@@ -13,6 +13,7 @@ import {
   RESOURCEREQUEST,
 } from "../src/constants/constants";
 import Error from "next/error";
+import { Head } from "next/document";
 const SearchPage = ({
   resources,
   city,
@@ -26,6 +27,9 @@ const SearchPage = ({
 }): JSX.Element => {
   return (
     <>
+      <Head>
+        <title>Search Result</title>
+      </Head>
       <AppBar label="Search Result" />
       <Layout selectedKey={0} displayBottomNavbar={false}>
         {city !== null && type != null && resourceType != null ? (

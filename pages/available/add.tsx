@@ -21,6 +21,7 @@ import ResourceService from "../../src/services/ResourceService";
 import { useRouter } from "next/router";
 import LoadingSpinner from "../../src/components/LoadingSpinner";
 import HttpService from "../../src/services/HttpService";
+import { Head } from "next/document";
 const AvailableForm = () => {
   const [data, setData] = useState<AvailableResourceData>({
     name: "",
@@ -208,6 +209,9 @@ const AvailableForm = () => {
 
   return (
     <>
+      <Head>
+        <title>Add available resource</title>
+      </Head>
       <AppBar label="Add available resource" />
       <Layout selectedKey={0} displayBottomNavbar={false}>
         <>

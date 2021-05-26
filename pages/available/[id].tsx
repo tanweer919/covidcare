@@ -8,6 +8,7 @@ import { AvailableResource } from "../../src/interfaces/interface";
 import { GetServerSideProps } from "next";
 import ResourceService from "../../src/services/ResourceService";
 import Error from "next/error";
+import { Head } from "next/document";
 const AvailableResourcePage = ({
   id,
   resource,
@@ -19,7 +20,10 @@ const AvailableResourcePage = ({
 
   return (
     <>
-      <AppBar label="Available Resource" />
+      <Head>
+        <title>{resource.name ? resource.name : "Available resource"}</title>
+      </Head>
+      <AppBar label="Available resource" />
       <Layout selectedKey={0}>
         {id ? (
           resource ? (

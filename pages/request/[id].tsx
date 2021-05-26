@@ -8,6 +8,7 @@ import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { ResourceRequest } from "../../src/interfaces/interface";
 import ResourceService from "../../src/services/ResourceService";
 import Error from "next/error";
+import { Head } from "next/document";
 const ResourceRequestPage = ({
   id,
   resource,
@@ -18,7 +19,10 @@ const ResourceRequestPage = ({
   const router = useRouter();
   return (
     <>
-      <AppBar label="Resource Request" />
+      <Head>
+        <title>{resource.name ? resource.name : "Resource request"}</title>
+      </Head>
+      <AppBar label="Resource request" />
       <Layout selectedKey={0}>
         {id ? (
           resource ? (
