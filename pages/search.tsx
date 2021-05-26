@@ -36,14 +36,12 @@ const SearchPage = ({
         {city !== null && type != null && resourceType != null ? (
           <>
             <div className="my-4">
-              <h2 className="text-4xl text-textgray flex flex-row justify-start gap-x-2 items-center">
-                <span>Search</span>
-                <span>result</span>
-                <span>for</span>
+              <h2 className="text-4xl text-textgray flex flex-row justify-start items-center">
+                <span>Search result for </span>
                 <div className="text-3xl text-black p-2 bg-gray400">
                   {resourceList[type].label}
                 </div>
-                <span>around</span>
+                <span> around </span>
                 <div className="text-3xl text-black p-2 bg-gray400">{city}</div>
               </h2>
             </div>
