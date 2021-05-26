@@ -24,10 +24,6 @@ export default class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#57c6ac" />
           <meta name="msapplication-tap-highlight" content="no" />
           <meta name="theme-color" content="#57c6ac" />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
 
           <link
             rel="apple-touch-icon"

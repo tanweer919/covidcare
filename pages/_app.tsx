@@ -7,6 +7,7 @@ import "nprogress/nprogress.css";
 import { AppProps } from "next/app";
 import NProgress from "nprogress";
 import Router from "next/router";
+import { Head } from "next/document";
 NProgress.configure({
   minimum: 0.3,
   easing: "ease",
@@ -19,7 +20,17 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+        />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
 };
 
 export default MyApp;
